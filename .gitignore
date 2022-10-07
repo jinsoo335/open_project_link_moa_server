@@ -1,0 +1,9 @@
+*.yml
+**/Secret.java
+
+build/
+.gradle
+.idea
+out/
+
+logs/
