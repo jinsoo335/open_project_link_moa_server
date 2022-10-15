@@ -6,6 +6,7 @@ import com.example.demo.src.Users.model.PostCreateUserReq;
 import com.example.demo.src.Users.model.PostCreateUserRes;
 import com.example.demo.src.Users.model.PostLoginReq;
 import com.example.demo.src.Users.model.PostLoginRes;
+import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,6 +50,9 @@ public class UserController {
         }
 
 
+        if(!postCreateUserReq.getId().matches("^[a-zA-Z0-9]*$")){
+            return new BaseResponse<>(USERS_SPECIAL_CHAR_USER_ID);
+        }
 
         try{
             PostCreateUserRes postCreateUserRes = userService.createUser(postCreateUserReq);
@@ -67,6 +71,19 @@ public class UserController {
      */
     @RequestMapping("/login")
     public BaseResponse<PostLoginRes> loginUser(@RequestBody PostLoginReq postLoginReq){
+        if (postLoginReq.getId().length() > 20 || postLoginReq.getId().length() < 8) {
+            return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_ID);
+        }
+
+        if(postLoginReq.getPassword().length() > 20 || postLoginReq.getPassword().length() < 8){
+            return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_PASSWORD);
+        }
+
+        if(!postLoginReq.getId().matches("^[a-zA-Z0-9]*$")){
+            return new BaseResponse<>(USERS_SPECIAL_CHAR_USER_ID);
+        }
+
+
         try{
             PostLoginRes postLoginRes = userService.loginUser(postLoginReq);
             return new BaseResponse<>(postLoginRes);

@@ -28,6 +28,7 @@ public enum BaseResponseStatus {
     USERS_INVALID_USER_PASSWORD(false, 2012, "비밀번호가 일치하지 않습니다."),
     USERS_UNABLE_LENGTH_USER_ID(false, 2013, "아이디 글자수가 맞지 않습니다."),
     USERS_UNABLE_LENGTH_USER_PASSWORD(false, 2014, "비밀번호 글자수가 맞지 않습니다."),
+    USERS_SPECIAL_CHAR_USER_ID(false, 2015, "아이디에 특수문자를 사용할 수 없습니다."),
 
     /**
      * 3000 : Response 오류
