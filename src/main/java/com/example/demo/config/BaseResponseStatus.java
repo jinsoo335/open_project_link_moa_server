@@ -24,8 +24,10 @@ public enum BaseResponseStatus {
 
     // users
     USERS_EMPTY_USER_ID(false, 2010, "유저 아이디 값을 확인해주세요."),
-
-
+    USERS_EXIST_USER_ID(false, 2011, "이미 존재하는 유저 아이디 입니다."),
+    USERS_INVALID_USER_PASSWORD(false, 2012, "비밀번호가 일치하지 않습니다."),
+    USERS_UNABLE_LENGTH_USER_ID(false, 2013, "아이디 글자수가 맞지 않습니다."),
+    USERS_UNABLE_LENGTH_USER_PASSWORD(false, 2014, "비밀번호 글자수가 맞지 않습니다."),
 
     /**
      * 3000 : Response 오류
