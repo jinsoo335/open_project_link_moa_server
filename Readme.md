@@ -68,6 +68,8 @@
 - @Controller: 해당 Class가 Controller의 역할을 한다고 명시하기 위해 사용하는 Annotation
 - @RequestHeader: Request의 header값을 가져올 수 있게 해주는 Annotation
 - @RequestMapping: @RequestMapping(value=”“)와 같은 형태로 작성, 요청 들어온 URI의 요청과 Annotation value 값이 일치하면 해당 클래스나 메소드가 실행된다.
+  - ex) 만약 , @RequestMapping("/users") 라면, 들어온 url의 /~부분과 같으면 실행.
+- @RestController : controller 역할 + ResponseBody(반환값을 JSON으로 반환한다.)
 - @RequestParam: URL에 전달되는 파라미터를 메소드의 인자와 매칭시켜, 파라미터를 받아서 처리할 수 있는 Annotation으로 아래와 같이 사용
 - @RequestBody: Body에 전달되는 데이터를 메소드의 인자와 매칭시켜, 데이터를 받아서 처리할 수 있는 Annotation
 - @ResponseBody: 메소드에서 리턴되는 값이 View 로 출력되지 않고 HTTP Response Body에 직접 쓰여지게 됨. return 시에 json, xml과 같은 데이터를 return
