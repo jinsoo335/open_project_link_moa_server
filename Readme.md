@@ -8,7 +8,7 @@
 
 
 ### nohup
-무중단 서비스를 위해 nohup을 사용한다. 자세한 내용은 환경 구축 실습 영상을 참고하자.
+무중단 서비스를 위해 nohup을 사용한다.
 
 
 ### Spring Bean
@@ -36,6 +36,23 @@
 - Spring Boot 에서는 jdbc연동을 위한 starter를 제공
 - 자바에서 DB 프로그래밍을 하기 위해 사용되는 API
 
+- **Jdbctemplate**
+  - SQL쿼리들을 실행함
+  - 구문과 저장된 프로시저 호출을 수정함
+  - ResultSet 인스턴스에 대한 반복을 실행함
+  - 반환된 매개변수 값을 추출함
+  - JDBC 예외를 잡아 더 일반적이고 유익하게 변환함
+  - ※ DataSource는 항상 스프링 컨테이너에서 빈으로 구성해야 함.
+
+
+### WebSecurityConfig
+- Spring security에서는 기본적으로 csrf protection을 제공한다.
+- CSRF protection은 spring security에서 default로 설정된다. 
+- 즉, protection을 통해 GET요청을 제외한 상태를 변화시킬 수 있는 POST, PUT, DELETE 요청으로부터 보호한다.
+- 때문에, Get을 제외한 다른 요청을 받기 위해서는 csrf().disable() 처리가 필요하다.
+- rest api에서 client는 권한이 필요한 요청을 하기 위해서는 요청에 필요한 인증 정보를(OAuth2, jwt토큰 등)을 포함시켜야 한다. 
+- 따라서 서버에 인증정보를 저장하지 않기 때문에 굳이 불필요한 csrf 코드들을 작성할 필요가 없다.
+- -> 회원용 API의 개발 등에서는 jwt를 사용하는 것을 염두해 두자.
 
 
 ### Annotation
