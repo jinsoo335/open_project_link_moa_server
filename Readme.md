@@ -1,6 +1,10 @@
 ### 동작 순서
-- `Request` -> Route -> Controller -> Service/Provider -> DAO -> DB
-- DB -> DAO -> Service/Provider -> Controller -> Route -> `Response`
+- `Request` -> Controller -> Service/Provider -> DAO -> DB
+- DB -> DAO -> Service/Provider -> Controller -> `Response`
+- Controller에 라우터 기능 있음
+- Service GET을 제외한 나머지 RESTAPI 요청처리
+- Provider 는 GET 처리 ( Get이 빈도가 높음)
+- DAO는 service와 Provider 둘다 호출함.
 
 
 ### BaseException
