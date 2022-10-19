@@ -1,10 +1,10 @@
 ### 동작 순서
 - `Request` -> Controller -> Service/Provider -> DAO -> DB
 - DB -> DAO -> Service/Provider -> Controller -> `Response`
-- Controller에 라우터 기능 있음
-- Service GET을 제외한 나머지 RESTAPI 요청처리
-- Provider 는 GET 처리 ( Get이 빈도가 높음)
-- DAO는 service와 Provider 둘다 호출함.
+- Controller에 라우터 기능 있음 -> `@Controller`사용: 웹 요청과 응답을 처리함
+- Service GET을 제외한 나머지 RESTAPI 요청처리 -> `@Service` 사용: 내부에서 자바 로직을 처리함 
+- Provider 는 GET 처리 ( Get이 빈도가 높음)  -> `@Service` 사용: 내부에서 자바 로직을 처리함
+- DAO는 service와 Provider 둘다 호출함.  -> `@Repository` 사용: DB나 파일같은 외부 I/O 작업을 처리함
 
 
 ### BaseException
@@ -63,20 +63,20 @@
 - Annotation은 클래스와 메소드에 추가하여 다양한 기능을 부여하는 역할
 - 특별한 의미를 부여하거나 기능을 부여하는 등 다양한 역할을 수행할 수 있음
 
-- @SpringBootApplication: SpringBoot의 시작점을 알림, 본 프로젝트에는 `DemoApplication.java` 에서 사용된다.
-- @Component: 개발자가 생성한 Class를 Spring의 Bean으로 등록할 때 사용하는 Annotation
-- @Controller: 해당 Class가 Controller의 역할을 한다고 명시하기 위해 사용하는 Annotation
-- @RequestHeader: Request의 header값을 가져올 수 있게 해주는 Annotation
-- @RequestMapping: @RequestMapping(value=”“)와 같은 형태로 작성, 요청 들어온 URI의 요청과 Annotation value 값이 일치하면 해당 클래스나 메소드가 실행된다.
+- `@SpringBootApplication`: SpringBoot의 시작점을 알림, 본 프로젝트에는 `DemoApplication.java` 에서 사용된다.
+- `@Component`: 개발자가 생성한 Class를 Spring의 Bean으로 등록할 때 사용하는 Annotation
+- `@Controller`: 해당 Class가 Controller의 역할을 한다고 명시하기 위해 사용하는 Annotation
+- `@RequestHeader`: Request의 header값을 가져올 수 있게 해주는 Annotation
+- `@RequestMapping`: @RequestMapping(value=”“)와 같은 형태로 작성, 요청 들어온 URI의 요청과 Annotation value 값이 일치하면 해당 클래스나 메소드가 실행된다.
   - ex) 만약 , @RequestMapping("/users") 라면, 들어온 url의 /~부분과 같으면 실행.
-- @RestController : controller 역할 + ResponseBody(반환값을 JSON으로 반환한다.)
-- @RequestParam: URL에 전달되는 파라미터를 메소드의 인자와 매칭시켜, 파라미터를 받아서 처리할 수 있는 Annotation으로 아래와 같이 사용
-- @RequestBody: Body에 전달되는 데이터를 메소드의 인자와 매칭시켜, 데이터를 받아서 처리할 수 있는 Annotation
-- @ResponseBody: 메소드에서 리턴되는 값이 View 로 출력되지 않고 HTTP Response Body에 직접 쓰여지게 됨. return 시에 json, xml과 같은 데이터를 return
-- @Autowired: Spring Framework에서 Bean 객체를 주입받기 위한 방법
-- @GetMapping: RequestMapping(Method=RequestMethod.GET)과 똑같은 역할
-- @PostMapping: RequestMapping(Method=RequestMethod.POST)과 똑같은 역할
+- `@RestController` : controller 역할 + ResponseBody(반환값을 JSON으로 반환한다.)
+- `@RequestParam`: URL에 전달되는 파라미터를 메소드의 인자와 매칭시켜, 파라미터를 받아서 처리할 수 있는 Annotation으로 아래와 같이 사용
+- `@RequestBody`: Body에 전달되는 데이터를 메소드의 인자와 매칭시켜, 데이터를 받아서 처리할 수 있는 Annotation
+- `@ResponseBody`: 메소드에서 리턴되는 값이 View 로 출력되지 않고 HTTP Response Body에 직접 쓰여지게 됨. return 시에 json, xml과 같은 데이터를 return
+- `@Autowired`: Spring Framework에서 Bean 객체를 주입받기 위한 방법
+- `@GetMapping`: RequestMapping(Method=RequestMethod.GET)과 똑같은 역할
+- `@PostMapping`: RequestMapping(Method=RequestMethod.POST)과 똑같은 역할
 
-- @Setter: Class 모든 필드의 Setter method를 생성
-- @Getter: Class 모든 필드의 Getter method를 생성
-- @AllArgsConstructor: Class 모든 필드 값을 파라미터로 받는 생성자를 추가
+- `@Setter`: Class 모든 필드의 Setter method를 생성
+- `@Getter`: Class 모든 필드의 Getter method를 생성
+- `@AllArgsConstructor`: Class 모든 필드 값을 파라미터로 받는 생성자를 추가
