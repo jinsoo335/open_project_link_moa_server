@@ -7,6 +7,7 @@ import com.example.demo.src.Folders.model.GetFolderRes;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -19,6 +20,7 @@ public class FolderProvider {
     private final FolderDao folderDao;
     final Logger logger = LoggerFactory.getLogger(this.getClass());
 
+    @Autowired
     public FolderProvider(FolderDao folderDao) {
         this.folderDao = folderDao;
     }
@@ -33,4 +35,6 @@ public class FolderProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+
 }

@@ -8,4 +8,5 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class PostCreateFolderRes {
+    private int folderIdx;
 }
