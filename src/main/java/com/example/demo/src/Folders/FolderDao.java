@@ -50,4 +50,14 @@ public class FolderDao {
 
 
     }
+
+    public int checkFolder(int userIdx, PostCreateFolderReq postCreateFolderReq) {
+        String checkFolderQuery = "select exists(select folderIdx from Folders where ownerUserIdx = ? and folderName = ?);\n";
+        Object[] checkFolderParams= {
+                userIdx,
+                postCreateFolderReq.getFolderName()
+        };
+
+        return this.jdbcTemplate.queryForObject(checkFolderQuery, int.class, checkFolderParams);
+    }
 }

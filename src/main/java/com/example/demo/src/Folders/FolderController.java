@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Map;
 
+import static com.example.demo.config.BaseResponseStatus.*;
+
 @RestController
 @RequestMapping("/folders")
 public class FolderController {
@@ -41,6 +43,18 @@ public class FolderController {
     public BaseResponse<PostCreateFolderRes> postCreateFolders(@RequestBody Map<String, String> param){
         try{
             PostCreateFolderReq postCreateFolderReq = new PostCreateFolderReq(param.get("folderName"));
+
+            if(postCreateFolderReq.getFolderName() == null){
+                return new BaseResponse<>(FOLDERS_EMPTY_FOLDER_NAME);
+            }
+
+            if(postCreateFolderReq.getFolderName().length() > 20 && postCreateFolderReq.getFolderName().length() == 0){
+                return new BaseResponse<>(FOLDERS_UNABLE_LENGTH_FOLDER_NAME);
+            }
+
+            if(postCreateFolderReq.getFolderName().matches("^[a-zA-Z0-9]*$")){
+                return new BaseResponse<>(FOLDERS_UNABLE_WORD_FOLDER_NAME);
+            }
 
             PostCreateFolderRes postCreateFolderRes = folderService.postCreateFolder(postCreateFolderReq);
             return new BaseResponse<>(postCreateFolderRes);

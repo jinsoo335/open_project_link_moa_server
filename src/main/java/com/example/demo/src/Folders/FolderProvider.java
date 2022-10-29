@@ -5,6 +5,7 @@ import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.security.JwtTool;
 import com.example.demo.src.Folders.model.GetFolderRes;
 
+import com.example.demo.src.Folders.model.PostCreateFolderReq;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,4 +38,13 @@ public class FolderProvider {
     }
 
 
+    public int checkFolder(int userIdx, PostCreateFolderReq postCreateFolderReq) throws BaseException {
+        try{
+            int res = folderDao.checkFolder(userIdx, postCreateFolderReq);
+            return res;
+        }catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+    }
 }

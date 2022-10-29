@@ -30,15 +30,16 @@ public enum BaseResponseStatus {
     USERS_UNABLE_LENGTH_USER_PASSWORD(false, 2014, "비밀번호 글자수가 맞지 않습니다."),
     USERS_SPECIAL_CHAR_USER_ID(false, 2015, "아이디에 특수문자를 사용할 수 없습니다."),
 
+    // Folders
+    FOLDERS_EMPTY_FOLDER_NAME(false, 2050, "폴더 생성 시 이름이 필요합니다."),
+    FOLDERS_UNABLE_LENGTH_FOLDER_NAME(false, 2051, "폴더 이름의 길이를 맞춰주세요."),
+    FOLDERS_EXIST_FOLDER_NAME(false,2052, "같은 이름의 폴더가 이미 있습니다."),
+    FOLDERS_UNABLE_WORD_FOLDER_NAME(false, 2053, "사용할 수 없는 폴더 이름입니다."),
     /**
      * 3000 : Response 오류
      */
     // Common
     RESPONSE_ERROR(false, 3000, "값을 불러오는데 실패하였습니다."),
-
-    // [POST] /users
-    DUPLICATED_EMAIL(false, 3013, "중복된 이메일입니다."),
-    FAILED_TO_LOGIN(false,3014,"없는 아이디거나 비밀번호가 틀렸습니다."),
 
 
 
