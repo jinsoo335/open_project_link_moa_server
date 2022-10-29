@@ -1,12 +1,10 @@
 package com.example.demo.src.Users;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.BaseResponseStatus;
-import com.example.demo.src.Users.model.PostCreateUserReq;
-import com.example.demo.src.Users.model.PostCreateUserRes;
-import com.example.demo.src.Users.model.PostLoginReq;
-import com.example.demo.src.Users.model.PostLoginRes;
+import com.example.demo.security.JwtTool;
+import com.example.demo.src.Users.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.example.demo.config.BaseResponseStatus.*;
@@ -39,8 +37,15 @@ public class UserService {
 
 
         try{
-            PostCreateUserRes postCreateUserRes = userDao.createUser(postCreateUserReq);
-            return postCreateUserRes;
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+            String securityPw = encoder.encode(postCreateUserReq.getPassword());
+
+            postCreateUserReq.setPassword(securityPw);
+
+            int userIdx = userDao.createUser(postCreateUserReq);
+            String jwtToken = JwtTool.crateJwtToken(userIdx);
+
+            return new PostCreateUserRes(userIdx, jwtToken);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
@@ -57,8 +62,10 @@ public class UserService {
 
 
         try{
-            PostLoginRes postLoginRes = userDao.loginUser(postLoginReq);
-            return postLoginRes;
+            Users users = userDao.loginUser(postLoginReq);
+            String jwtToken = JwtTool.crateJwtToken(users.getUserIdx());
+
+            return new PostLoginRes(users, jwtToken);
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }

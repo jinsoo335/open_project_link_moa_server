@@ -1,9 +1,6 @@
 package com.example.demo.src.Users;
 
-import com.example.demo.src.Users.model.PostCreateUserReq;
-import com.example.demo.src.Users.model.PostCreateUserRes;
-import com.example.demo.src.Users.model.PostLoginReq;
-import com.example.demo.src.Users.model.PostLoginRes;
+import com.example.demo.src.Users.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.parameters.P;
@@ -20,7 +17,8 @@ public class UserDao {
     public void setJdbc(DataSource dataSource){
         this.jdbcTemplate = new JdbcTemplate(dataSource);
     }
-    public PostCreateUserRes createUser(PostCreateUserReq postCreateUserReq) {
+
+    public int createUser(PostCreateUserReq postCreateUserReq) {
         String createQuery = "insert into Users (id, password, nickname, profileimageurl) values (?,?,?,?);";
         Object[] createParams = new Object[]{
                 postCreateUserReq.getId(),
@@ -34,7 +32,7 @@ public class UserDao {
 
         String createResQuery = "select last_insert_id();";
         int userIdx = this.jdbcTemplate.queryForObject(createResQuery, int.class);
-        return new PostCreateUserRes(userIdx);
+        return userIdx;
 
     }
 
@@ -53,14 +51,20 @@ public class UserDao {
         return this.jdbcTemplate.queryForObject(checkPasswordQuery, int.class, checkPasswordParams);
     }
 
-    public PostLoginRes loginUser(PostLoginReq postLoginReq) {
+    public String getUserPassword(String id){
+        String getPasswordQuery = "select password from Users where id = ?;";
+        return this.jdbcTemplate.queryForObject(getPasswordQuery, String.class, id);
+    }
+
+
+    public Users loginUser(PostLoginReq postLoginReq) {
         String userLoginQuery = "select userIdx, id, nickname, profileImageUrl\n" +
                 "from Users\n" +
                 "where Id = ?;";
         Object[] userLoginParams = new Object[]{postLoginReq.getId()};
 
         return this.jdbcTemplate.queryForObject(userLoginQuery,
-                (rs, rowNum) -> new PostLoginRes(
+                (rs, rowNum) -> new Users(
                         rs.getInt("userIdx"),
                         rs.getString("id"),
                         rs.getString("nickname"),

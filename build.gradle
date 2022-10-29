@@ -36,7 +36,6 @@ dependencies {
 
     // DB
     runtimeOnly ('mysql:mysql-connector-java') //mysql8
-    //runtimeOnly 'mysql:mysql-connector-java:5.1.47' //mysql5
     implementation ('org.springframework.boot:spring-boot-starter-jdbc')
 
 
@@ -51,9 +50,10 @@ dependencies {
     implementation('org.springframework.boot:spring-boot-starter')
     compile('org.springframework.boot:spring-boot-starter-web')
 
+    // GSON json을 쉽게 변환
+    implementation 'com.google.code.gson:gson:2.8.7'
 
-
-
+    implementation group: 'javax.xml.bind', name: 'jaxb-api', version: '2.3.1'
 
 }
 

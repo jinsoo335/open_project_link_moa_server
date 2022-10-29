@@ -2,6 +2,7 @@ package com.example.demo.src.Users;
 
 import com.example.demo.config.BaseException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import static com.example.demo.config.BaseResponseStatus.DATABASE_ERROR;
@@ -30,12 +31,19 @@ public class UserProvider {
 
     public int checkUserPassword(String id, String password) throws BaseException{
         try{
-            int res = userDao.checkUserPassword(id, password);
+            // int res = userDao.checkUserPassword(id, password);
+            String pwd = userDao.getUserPassword(id);
+            BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
-            return res;
+            if(encoder.matches(password, pwd)){
+                return 1;
+            }
+
+            return 0;
         } catch (Exception exception){
             throw new BaseException(DATABASE_ERROR);
         }
-
     }
+
+
 }
