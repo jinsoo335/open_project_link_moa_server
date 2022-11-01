@@ -80,3 +80,7 @@
 - `@Setter`: Class 모든 필드의 Setter method를 생성
 - `@Getter`: Class 모든 필드의 Getter method를 생성
 - `@AllArgsConstructor`: Class 모든 필드 값을 파라미터로 받는 생성자를 추가
+
+###JWT
+- jwt 최초 빌드시 idx, secret key, 만료시간, jwt 알고리즘, 생성시간이 들어감.
+- 다시 서버에서 헤더에 담아 jwt 를 보내면, secret key를 통해서 이를 decode하여 idx를 뽑아낼 수 있다.
