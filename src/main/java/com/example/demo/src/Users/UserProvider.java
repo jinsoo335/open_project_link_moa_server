@@ -20,6 +20,16 @@ public class UserProvider {
     }
 
 
+    public int checkUserIdx(int userIdx) throws BaseException{
+        try{
+            int res = userDao.checkUserIdx(userIdx);
+            return res;
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+
     public int checkUserId(String id) throws BaseException{
         try{
             // 가입하려는 id를 db에 검색해 있는지 확인하는 함수 - 있으면 1, 없으면 0

@@ -90,6 +90,11 @@ public class UserController {
     }
 
 
+    /**
+     * 닉네임으로 사용자 검색 함수
+     * @param search
+     * @return List<GetUserRes>
+     */
     @GetMapping("/nickname")
     public BaseResponse<List<GetUserRes>> getUserNickname(@RequestParam(required = false) String search){
         try{
@@ -100,11 +105,32 @@ public class UserController {
         }
     }
 
+
+    /**
+     * id로 사용자를 검색하는 함수
+     * @param search
+     * @return GetUserRes
+     */
     @GetMapping("/id")
     public BaseResponse<GetUserRes> getUserId(@RequestParam(required = false) String search){
         try{
             GetUserRes getUserRes = userProvider.getUserId(search);
             return new BaseResponse<>(getUserRes);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+
+    @PatchMapping("/modify")
+    public BaseResponse<PatchUserRes> modifyUser(@RequestBody PatchUserReq patchUserReq){
+        try{
+            if(!patchUserReq.getNickname().matches("^([ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9,. ])*$")){
+                return new BaseResponse<>(USERS_UNABLE_USER_NICKNAME);
+            }
+
+            PatchUserRes patchUserRes = userService.modifyUser(patchUserReq);
+            return new BaseResponse<>(patchUserRes);
         } catch (BaseException e){
             return new BaseResponse<>(e.getStatus());
         }

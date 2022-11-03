@@ -71,4 +71,22 @@ public class UserService {
         }
 
     }
+
+    public PatchUserRes modifyUser(PatchUserReq patchUserReq) throws BaseException {
+        int userIdx = JwtTool.getUserIdx();
+
+        if(userProvider.checkUserIdx(userIdx) == 0){
+            throw new BaseException(USERS_NOT_EXIST_USER);
+        }
+
+        try{
+            PatchUserRes patchUserRes = userDao.modifyUser(userIdx, patchUserReq);
+            return patchUserRes;
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+
+
+    }
 }

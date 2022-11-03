@@ -30,6 +30,7 @@ public enum BaseResponseStatus {
     USERS_UNABLE_LENGTH_USER_PASSWORD(false, 2014, "비밀번호 글자수가 맞지 않습니다."),
     USERS_SPECIAL_CHAR_USER_ID(false, 2015, "아이디에 특수문자를 사용할 수 없습니다."),
     USERS_NOT_EXIST_USER(false, 2016, "사용자가 존재하지 않습니다."),
+    USERS_UNABLE_USER_NICKNAME(false, 2017, "사용할 수 없는 닉네임입니다."),
 
 
     // Folders

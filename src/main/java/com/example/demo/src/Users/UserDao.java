@@ -110,4 +110,27 @@ public class UserDao {
                         rs.getString("profileImageUrl")
                 ), getUserParams);
     }
+
+    public int checkUserIdx(int userIdx) {
+        String checkUserQuery = "select exists(select userIdx from Users where userIdx = ?);";
+        int checkUserParam = userIdx;
+
+        return this.jdbcTemplate.queryForObject(checkUserQuery, int.class, checkUserParam);
+    }
+
+    public PatchUserRes modifyUser(int userIdx, PatchUserReq patchUserReq) {
+        String modifyUserQuery = "update Users\n" +
+                "set nickname = ?, profileImageUrl = ?, updatedAt = current_timestamp\n" +
+                "where userIdx = ?;";
+        Object[] modifyUserParams = {
+                patchUserReq.getNickname(),
+                patchUserReq.getProfileImageUrl(),
+                userIdx
+        };
+
+        this.jdbcTemplate.update(modifyUserQuery, modifyUserParams);
+
+        String lastUpdateUserQuery = "select userIdx from Users order by updatedAt desc limit 1;";
+        return new PatchUserRes(this.jdbcTemplate.queryForObject(lastUpdateUserQuery, int.class));
+    }
 }
