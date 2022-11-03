@@ -40,7 +40,7 @@ public enum BaseResponseStatus {
     FOLDERS_UNABLE_WORD_FOLDER_NAME(false, 2053, "사용할 수 없는 폴더 이름입니다."),
     FOLDERS_NOT_EXIST_FOLDER(false, 2054, "해당 폴더가 존재하지 않습니다."),
     FOLDERS_DELETE_FAILED(false, 2055, "폴더 삭제에 실패했습니다."),
-
+    FOLDERS_DUPLICATE_FOLDER_NAME(false, 2056, "중복된 폴더 이름이 있습니다."),
 
 
     /**

@@ -38,6 +38,14 @@ public class FolderProvider {
     }
 
 
+    /**
+     * 해당 사용자가 가진 폴더 중 folderName과 일치하는 폴더가 있는지 체크
+     * -> 중복체크
+     * @param userIdx
+     * @param folderName
+     * @return 존재하면 1, 없으면 0
+     * @throws BaseException
+     */
     public int checkFolderName(int userIdx, String folderName) throws BaseException {
         try{
             int res = folderDao.checkFolderName(userIdx, folderName);
@@ -52,6 +60,15 @@ public class FolderProvider {
             int res = folderDao.checkFolder(userIdx, folderIdx);
             return res;
         }catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+    public String getFolderName(int folderIdx) throws BaseException{
+        try{
+            String folderName = folderDao.getFolderName(folderIdx);
+            return folderName;
+        } catch (Exception e){
             throw new BaseException(DATABASE_ERROR);
         }
     }

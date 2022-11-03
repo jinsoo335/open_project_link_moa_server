@@ -26,6 +26,10 @@ public class FolderController {
     }
 
 
+    /**
+     * 사용자의 폴더들을 가져오는 API
+     * @return List<GetFolderRes>
+     */
     @GetMapping("")
     public BaseResponse<List<GetFolderRes>> getFolders(){
         try{
@@ -37,6 +41,12 @@ public class FolderController {
     }
 
 
+    /**
+     * 폴더를 추가하는 API
+     * 폴더 이름 중복 불가
+     * @param param
+     * @return PostCreateFolderRes
+     */
     @PostMapping("/create")
     public BaseResponse<PostCreateFolderRes> postCreateFolders(@RequestBody Map<String, String> param){
         try{
@@ -62,6 +72,11 @@ public class FolderController {
     }
 
 
+    /**
+     * 폴더 이름 수정 API
+     * @param patchFolderReq
+     * @return PatchFolderRes
+     */
     @PatchMapping("/modify")
     public BaseResponse<PatchFolderRes> modifyFolderName(@RequestBody PatchFolderReq patchFolderReq){
         try{
@@ -79,6 +94,11 @@ public class FolderController {
         }
     }
 
+    /**
+     * 폴더 삭제 API
+     * @param folderIdx
+     * @return folderIdx + "번 폴더를 삭제했습니다."
+     */
     @DeleteMapping("/delete/{folderIdx}")
     public BaseResponse<String> deleteFolder(@PathVariable ("folderIdx") int folderIdx){
         try{
@@ -90,6 +110,23 @@ public class FolderController {
     }
 
 
+    /**
+     * 폴더 복사 api
+     * 폴더 번호와 받는 사람 번호를 가지고 폴더를 복사한다.
+     * LinkFolder에서는 알림을 보내고 이를 수락할 때 폴더가 복사된다.
+     * 받는 사람이 수락 버튼을 눌렀을 때 호출될 api
+     * @param postCopyFolderReq
+     * @return
+     */
+    @PostMapping("/copy")
+    public BaseResponse<PostCopyFolderRes> copyFolder(@RequestBody PostCopyFolderReq postCopyFolderReq){
+        try{
+            PostCopyFolderRes postCopyFolderRes = folderService.copyFolder(postCopyFolderReq);
+            return new BaseResponse<>(postCopyFolderRes);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
 
 
 
