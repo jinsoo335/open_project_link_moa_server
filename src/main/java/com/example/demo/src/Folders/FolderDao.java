@@ -1,5 +1,6 @@
 package com.example.demo.src.Folders;
 
+import com.example.demo.config.BaseException;
 import com.example.demo.src.Folders.model.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -9,6 +10,8 @@ import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
 import java.util.List;
+
+import static com.example.demo.config.BaseResponseStatus.FOLDERS_NOT_EXIST_FOLDER;
 
 @Repository
 public class FolderDao {
@@ -118,5 +121,15 @@ public class FolderDao {
 
         int lastUpdateFolderIdx = this.jdbcTemplate.queryForObject(lastUpdateFolderQuery, int.class);
         return new PatchFolderRes(lastUpdateFolderIdx);
+    }
+
+    public DeleteFolderRes deleteFolder(int folderIdx) {
+        String deleteFolderQuery = "delete from Folders\n" +
+                "where folderIdx = ?;";
+        int deleteFolderParam = folderIdx;
+
+        this.jdbcTemplate.update(deleteFolderQuery, deleteFolderParam);
+
+        return new DeleteFolderRes(folderIdx);
     }
 }

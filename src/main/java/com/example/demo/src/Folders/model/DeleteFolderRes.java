@@ -7,7 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PatchFolderReq {
-    private String updateFolderName;
+public class DeleteFolderRes {
     private int folderIdx;
 }

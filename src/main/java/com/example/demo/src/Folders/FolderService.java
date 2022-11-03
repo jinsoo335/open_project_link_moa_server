@@ -3,10 +3,7 @@ package com.example.demo.src.Folders;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.security.JwtTool;
-import com.example.demo.src.Folders.model.PatchFolderReq;
-import com.example.demo.src.Folders.model.PatchFolderRes;
-import com.example.demo.src.Folders.model.PostCreateFolderReq;
-import com.example.demo.src.Folders.model.PostCreateFolderRes;
+import com.example.demo.src.Folders.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +59,31 @@ public class FolderService {
         }
 
 
+
+    }
+
+    public DeleteFolderRes deleteFolder(int folderIdx) throws BaseException {
+        int userIdx = JwtTool.getUserIdx();
+
+        // 해당 폴더가 존재하는지 확인
+        if(folderProvider.checkFolder(userIdx, folderIdx) == 0){
+            throw new BaseException(FOLDERS_NOT_EXIST_FOLDER);
+        }
+
+        DeleteFolderRes deleteFolderRes;
+
+        try{
+            deleteFolderRes = folderDao.deleteFolder(folderIdx);
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+        // 삭제 후, 해당 폴더가 존재하는지 확인
+        if(folderProvider.checkFolder(userIdx, deleteFolderRes.getFolderIdx()) == 1){
+            throw new BaseException(FOLDERS_DELETE_FAILED);
+        }
+
+        return deleteFolderRes;
 
     }
 }

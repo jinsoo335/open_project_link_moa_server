@@ -79,8 +79,15 @@ public class FolderController {
         }
     }
 
-//    @DeleteMapping("/folders/delete")
-//    public BaseResponse<>
+    @DeleteMapping("/delete/{folderIdx}")
+    public BaseResponse<String> deleteFolder(@PathVariable ("folderIdx") int folderIdx){
+        try{
+            DeleteFolderRes deleteFolderRes = folderService.deleteFolder(folderIdx);
+            return new BaseResponse<>(folderIdx + "번 폴더를 삭제했습니다.");
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
 
 
 
