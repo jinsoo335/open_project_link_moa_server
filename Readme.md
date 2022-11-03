@@ -88,3 +88,7 @@
 ### 포스트맨 테스트 하기.. 
 - (intelij에 있는) 터미널에서  ./gradlew clean build
 - 성공 시 위위 방향 키 눌러서  
+
+### yml과 시크릿 키 위치
+- 시크릿 키 : config 아래
+- yml : resources
