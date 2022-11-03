@@ -38,13 +38,22 @@ public class FolderProvider {
     }
 
 
-    public int checkFolder(int userIdx, PostCreateFolderReq postCreateFolderReq) throws BaseException {
+    public int checkFolderName(int userIdx, String folderName) throws BaseException {
         try{
-            int res = folderDao.checkFolder(userIdx, postCreateFolderReq);
+            int res = folderDao.checkFolderName(userIdx, folderName);
             return res;
         }catch (Exception e){
             throw new BaseException(DATABASE_ERROR);
         }
-
     }
+
+    public int checkFolder(int userIdx, int folderIdx) throws BaseException {
+        try{
+            int res = folderDao.checkFolder(userIdx, folderIdx);
+            return res;
+        }catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 }

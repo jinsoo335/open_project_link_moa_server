@@ -2,9 +2,7 @@ package com.example.demo.src.Folders;
 
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
-import com.example.demo.src.Folders.model.GetFolderRes;
-import com.example.demo.src.Folders.model.PostCreateFolderReq;
-import com.example.demo.src.Folders.model.PostCreateFolderRes;
+import com.example.demo.src.Folders.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.parameters.P;
 import org.springframework.web.bind.annotation.*;
@@ -48,11 +46,11 @@ public class FolderController {
                 return new BaseResponse<>(FOLDERS_EMPTY_FOLDER_NAME);
             }
 
-            if(postCreateFolderReq.getFolderName().length() > 20 && postCreateFolderReq.getFolderName().length() == 0){
+            if(postCreateFolderReq.getFolderName().length() > 20 || postCreateFolderReq.getFolderName().length() == 0){
                 return new BaseResponse<>(FOLDERS_UNABLE_LENGTH_FOLDER_NAME);
             }
 
-            if(postCreateFolderReq.getFolderName().matches("^[a-zA-Z0-9]*$")){
+            if(!postCreateFolderReq.getFolderName().matches("\"^([ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9,. ])*$\"")){
                 return new BaseResponse<>(FOLDERS_UNABLE_WORD_FOLDER_NAME);
             }
 
@@ -62,5 +60,30 @@ public class FolderController {
             return new BaseResponse<>(e.getStatus());
         }
     }
+
+
+    @PatchMapping("/modify")
+    public BaseResponse<PatchFolderRes> modifyFolderName(@RequestBody PatchFolderReq patchFolderReq){
+        try{
+            if(patchFolderReq.getUpdateFolderName().length() > 20 || patchFolderReq.getUpdateFolderName().length() == 0){
+                return new BaseResponse<>(FOLDERS_UNABLE_LENGTH_FOLDER_NAME);
+            }
+            if(!patchFolderReq.getUpdateFolderName().matches("^([ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9,. ])*$")){
+                return new BaseResponse<>(FOLDERS_UNABLE_WORD_FOLDER_NAME);
+            }
+
+            PatchFolderRes patchFolderRes = folderService.modifyFolderName(patchFolderReq);
+            return new BaseResponse<>(patchFolderRes);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+//    @DeleteMapping("/folders/delete")
+//    public BaseResponse<>
+
+
+
+
 
 }
