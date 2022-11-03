@@ -7,6 +7,7 @@ import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
+import java.util.List;
 
 @Repository
 public class UserDao {
@@ -70,5 +71,43 @@ public class UserDao {
                         rs.getString("nickname"),
                         rs.getString("profileImageUrl")
                 ), userLoginParams);
+    }
+
+    public int checkUserNickname(String nickname) {
+        String checkUserNicknameQuery = "select exists(select userIdx from Users where nickname like ?);";
+        String checkUserNicknameParam = nickname;
+
+        return this.jdbcTemplate.queryForObject(checkUserNicknameQuery, int.class, checkUserNicknameParam);
+    }
+
+    public List<GetUserRes> getUserNickname(String search) {
+        String getUserQuery = "select userIdx, Id, nickname, profileImageUrl\n" +
+                "from Users\n" +
+                "where nickname = ?;";
+        String getUserParams = search;
+
+        return this.jdbcTemplate.query(getUserQuery,
+                (rs, rowNum) -> new GetUserRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("id"),
+                        rs.getString("nickname"),
+                        rs.getString("profileImageUrl")
+                ), getUserParams);
+    }
+
+    public GetUserRes getUserId(String search) {
+        String getUserQuery = "select userIdx, Id, nickname, profileImageUrl\n" +
+                "from Users\n" +
+                "where Id = ?;";
+        String getUserParams = search;
+
+
+        return this.jdbcTemplate.queryForObject(getUserQuery,
+                (rs, rowNum) -> new GetUserRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("id"),
+                        rs.getString("nickname"),
+                        rs.getString("profileImageUrl")
+                ), getUserParams);
     }
 }

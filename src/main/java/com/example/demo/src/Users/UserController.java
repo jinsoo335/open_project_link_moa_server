@@ -3,18 +3,14 @@ package com.example.demo.src.Users;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponse;
 import com.example.demo.security.JwtTool;
-import com.example.demo.src.Users.model.PostCreateUserReq;
-import com.example.demo.src.Users.model.PostCreateUserRes;
-import com.example.demo.src.Users.model.PostLoginReq;
-import com.example.demo.src.Users.model.PostLoginRes;
+import com.example.demo.src.Users.model.*;
 import org.jetbrains.annotations.NotNull;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 import static com.example.demo.config.BaseResponseStatus.*;
 
@@ -92,5 +88,27 @@ public class UserController {
             return new BaseResponse<>(exception.getStatus());
         }
     }
+
+
+    @GetMapping("/nickname")
+    public BaseResponse<List<GetUserRes>> getUserNickname(@RequestParam(required = false) String search){
+        try{
+            List<GetUserRes> getUserRes = userProvider.getUserNickname(search);
+            return new BaseResponse<>(getUserRes);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+    @GetMapping("/id")
+    public BaseResponse<GetUserRes> getUserId(@RequestParam(required = false) String search){
+        try{
+            GetUserRes getUserRes = userProvider.getUserId(search);
+            return new BaseResponse<>(getUserRes);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
 
 }
