@@ -123,6 +123,11 @@ public class FolderDao {
         return new PatchFolderRes(lastUpdateFolderIdx);
     }
 
+    /**
+     * 폴더 삭제 api
+     * @param folderIdx
+     * @return DeleteFolderRes
+     */
     public DeleteFolderRes deleteFolder(int folderIdx) {
         String deleteFolderQuery = "delete from Folders\n" +
                 "where folderIdx = ?;";
@@ -131,5 +136,57 @@ public class FolderDao {
         this.jdbcTemplate.update(deleteFolderQuery, deleteFolderParam);
 
         return new DeleteFolderRes(folderIdx);
+    }
+
+
+    /**
+     * 폴더 복사 api
+     * 전달받은 폴더 idx로 복사할 폴더를 찾아 이름을 얻고,
+     * 전달받은 receiveUserIdx에 해당하는 사용자에 복사 폴더를 추가한다.
+     * 이후, 새로 생성한 폴더의 idx를 가지고,
+     * 생성한 폴더의 내부를 복사할 폴더 내부의 링크들을 가져다 채운다.
+     * @param postCopyFolderReq
+     * @return PostCopyFolderRes
+     */
+    public PostCopyFolderRes copyFolder(PostCopyFolderReq postCopyFolderReq, String folderName) {
+
+        // 폴더 이름 복사 부분
+        String copyFolderQuery = "insert into Folders (folderName, ownerUserIdx)\n" +
+                "    values (?, ?);";
+
+        Object[] copyFolderParams = {
+                folderName,
+                postCopyFolderReq.getReceiveUserIdx()
+        };
+
+        this.jdbcTemplate.update(copyFolderQuery, copyFolderParams);
+
+        // 생성한 폴더의 idx값 가져오기
+        String lastCreateFolderQuery = "select last_insert_id();";
+        int folderIdx = this.jdbcTemplate.queryForObject(lastCreateFolderQuery, int.class);
+
+        
+        // 생성한 폴더에 링크 복사하기
+        String copyLinkQuery = "insert into Links (linkUrl, folderIdx, linkAlias)\n" +
+                "    select linkUrl, ?, linkAlias from Links where folderIdx = ?;";
+
+        Object[] copyLinkParams = {
+                folderIdx,
+                postCopyFolderReq.getFolderIdx()
+        };
+        this.jdbcTemplate.update(copyLinkQuery, copyLinkParams);
+
+        return new PostCopyFolderRes(folderIdx);
+
+    }
+
+    public String getFolderName(int folderIdx) {
+        String getFolderNameQuery = "select folderName\n" +
+                "from Folders\n" +
+                "where folderIdx = ?;";
+        int getFolderNameParam = folderIdx;
+
+
+        return this.jdbcTemplate.queryForObject(getFolderNameQuery, String.class, getFolderNameParam);
     }
 }

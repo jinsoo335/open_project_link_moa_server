@@ -86,4 +86,42 @@ public class FolderService {
         return deleteFolderRes;
 
     }
+
+    public PostCopyFolderRes copyFolder(PostCopyFolderReq postCopyFolderReq) throws BaseException{
+        int userIdx = JwtTool.getUserIdx();
+
+        // 해당 폴더가 존재하는지 확인
+        if(folderProvider.checkFolder(userIdx, postCopyFolderReq.getFolderIdx()) == 0){
+            throw new BaseException(FOLDERS_NOT_EXIST_FOLDER);
+        }
+
+        // 복사하고자 하는 폴더와 동일한 이름의 폴더가 존재하는지 확인
+        // 있다면 뒤에 ...(1) ...(2) 이런식으로 숫자 붙여주기
+        String folderName = folderProvider.getFolderName(postCopyFolderReq.getFolderIdx());
+        int i = 1;
+        StringBuffer sb = new StringBuffer(folderName);
+        while (true){
+            if(folderProvider.checkFolderName(postCopyFolderReq.getReceiveUserIdx(), sb.toString()) == 0){
+                folderName = sb.toString();
+                break;
+            }
+            if(folderName.length() > 20){
+                throw new BaseException(FOLDERS_DUPLICATE_FOLDER_NAME);
+            }
+            if(i > 1){
+                int digit = String.valueOf(i).length();
+                sb.replace(sb.length() - 1 - digit, sb.length() - digit, String.valueOf(i));
+            }else{
+                sb.append("(1)");
+            }
+            i++;
+        }
+
+        try{
+            PostCopyFolderRes postCopyFolderRes = folderDao.copyFolder(postCopyFolderReq, folderName);
+            return postCopyFolderRes;
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
