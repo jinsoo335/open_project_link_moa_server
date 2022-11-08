@@ -7,8 +7,8 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetLinkRes {
-    private String linkUrl;
+public class PatchLinkReq {
+    private String updateLinkUrl;
     private int linkIdx;
-    private String linkAlias;
+    private String updateLinkAlias;
 }

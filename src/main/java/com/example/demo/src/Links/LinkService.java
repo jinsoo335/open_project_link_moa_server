@@ -4,10 +4,11 @@ package com.example.demo.src.Links;
 import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.security.JwtTool;
-import com.example.demo.src.Links.model.PostCreateLinkReq;
-import com.example.demo.src.Links.model.PostCreateLinkRes;
+import com.example.demo.src.Links.model.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import static com.example.demo.config.BaseResponseStatus.*;
 
 @Service
 public class LinkService {
@@ -29,7 +30,52 @@ public class LinkService {
             return postCreateLinkRes;
 
         } catch (Exception e){
-            throw new BaseException(BaseResponseStatus.DATABASE_ERROR);
+            throw new BaseException(DATABASE_ERROR);
         }
+    }
+    public PatchLinkRes modifyLink(PatchLinkReq patchLinkReq) throws BaseException{
+
+        // 해당 링크가 존재하는지 확인
+        if(linkProvider.checkLink(patchLinkReq.getLinkIdx()) == 0){
+            throw new BaseException(LINKS_NOT_EXIST_LINK);
+        }
+
+        // 다른 링크 중에서 변경하고자 하는 이름을 가진 링크가 있는지 확인
+        if(linkProvider.checkLinkAlias(patchLinkReq.getUpdateLinkAlias()) == 1){
+            throw new BaseException(LINKS_EXIST_LINK_NAME);
+        }
+
+        try{
+            PatchLinkRes patchLinkRes = linkDao.modifyLink(patchLinkReq);
+            return patchLinkRes;
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+
+
+    }
+    public DeleteLinkRes deleteLink(int linkIdx) throws BaseException {
+
+        // 해당 링크가 존재하는지 확인
+        if(linkProvider.checkLink(linkIdx) == 0){
+            throw new BaseException(LINKS_NOT_EXIST_LINK);
+        }
+
+        DeleteLinkRes deleteFolderRes;
+
+        try{
+            deleteFolderRes = linkDao.deleteLink(linkIdx);
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+
+        // 삭제 후, 해당 링크가 존재하는지 확인
+        if(linkProvider.checkLink(deleteFolderRes.getLinkIdx()) == 1){
+            throw new BaseException(LINKS_DELETE_FAILED);
+        }
+
+        return deleteFolderRes;
+
     }
 }
