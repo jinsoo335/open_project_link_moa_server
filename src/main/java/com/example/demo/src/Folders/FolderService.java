@@ -91,7 +91,7 @@ public class FolderService {
         int userIdx = JwtTool.getUserIdx();
 
         // 해당 폴더가 존재하는지 확인
-        if(folderProvider.checkFolder(userIdx, postCopyFolderReq.getFolderIdx()) == 0){
+        if(folderProvider.checkFolder(postCopyFolderReq.getSendUserIdx(), postCopyFolderReq.getFolderIdx()) == 0){
             throw new BaseException(FOLDERS_NOT_EXIST_FOLDER);
         }
 
@@ -101,7 +101,7 @@ public class FolderService {
         int i = 1;
         StringBuffer sb = new StringBuffer(folderName);
         while (true){
-            if(folderProvider.checkFolderName(postCopyFolderReq.getReceiveUserIdx(), sb.toString()) == 0){
+            if(folderProvider.checkFolderName(userIdx, sb.toString()) == 0){
                 folderName = sb.toString();
                 break;
             }
@@ -118,7 +118,7 @@ public class FolderService {
         }
 
         try{
-            PostCopyFolderRes postCopyFolderRes = folderDao.copyFolder(postCopyFolderReq, folderName);
+            PostCopyFolderRes postCopyFolderRes = folderDao.copyFolder(postCopyFolderReq, folderName, userIdx);
             return postCopyFolderRes;
         } catch (Exception e){
             throw new BaseException(DATABASE_ERROR);

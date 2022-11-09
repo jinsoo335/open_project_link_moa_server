@@ -9,5 +9,5 @@ import lombok.Setter;
 @AllArgsConstructor
 public class PostCopyFolderReq {
     private int folderIdx;
-    private int receiveUserIdx;
+    private int sendUserIdx;
 }

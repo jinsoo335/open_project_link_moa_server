@@ -148,7 +148,7 @@ public class FolderDao {
      * @param postCopyFolderReq
      * @return PostCopyFolderRes
      */
-    public PostCopyFolderRes copyFolder(PostCopyFolderReq postCopyFolderReq, String folderName) {
+    public PostCopyFolderRes copyFolder(PostCopyFolderReq postCopyFolderReq, String folderName, int userIdx) {
 
         // 폴더 이름 복사 부분
         String copyFolderQuery = "insert into Folders (folderName, ownerUserIdx)\n" +
@@ -156,7 +156,7 @@ public class FolderDao {
 
         Object[] copyFolderParams = {
                 folderName,
-                postCopyFolderReq.getReceiveUserIdx()
+                userIdx
         };
 
         this.jdbcTemplate.update(copyFolderQuery, copyFolderParams);
