@@ -133,4 +133,23 @@ public class UserDao {
         String lastUpdateUserQuery = "select userIdx from Users order by updatedAt desc limit 1;";
         return new PatchUserRes(this.jdbcTemplate.queryForObject(lastUpdateUserQuery, int.class));
     }
+
+    public List<GetUserRes> getUser(String nameInfo) {
+        String getUserQuery = "select userIdx, id, nickname, profileImageUrl\n" +
+                "from Users\n" +
+                "where nickname like ? or id like ?;";
+
+        Object[] getUserParam = {
+                nameInfo,
+                nameInfo
+        };
+
+        return this.jdbcTemplate.query(getUserQuery,
+                (rs, rowNum) -> new GetUserRes(
+                        rs.getInt("userIdx"),
+                        rs.getString("id"),
+                        rs.getString("nickname"),
+                        rs.getString("profileImageUrl")
+                ), getUserParam);
+    }
 }

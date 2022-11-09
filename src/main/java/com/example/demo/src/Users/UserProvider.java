@@ -98,4 +98,20 @@ public class UserProvider {
         }
 
     }
+
+    public List<GetUserRes> getUser(String search) throws BaseException {
+        String nameInfo = "%" + search + "%";
+
+        if(checkUserNickname(nameInfo) == 0 && checkUserId(nameInfo) == 0){
+            throw new BaseException(USERS_NOT_EXIST_USER);
+        }
+
+        try{
+            List<GetUserRes> getUserResList = userDao.getUser(nameInfo);
+            return getUserResList;
+
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }

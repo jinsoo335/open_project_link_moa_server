@@ -122,6 +122,11 @@ public class UserController {
     }
 
 
+    /**
+     * 사용자 프로필 수정
+     * @param patchUserReq
+     * @return BaseResponse<PatchUserRes>
+     */
     @PatchMapping("/modify")
     public BaseResponse<PatchUserRes> modifyUser(@RequestBody PatchUserReq patchUserReq){
         try{
@@ -135,6 +140,23 @@ public class UserController {
             return new BaseResponse<>(e.getStatus());
         }
     }
+
+    /**
+     * 검색어를 기준으로 사용자의 id나 닉네임에 일치하는 부분이 있으면 해당 유저 정보 반환
+     * @param search
+     * @return BaseResponse<List<GetUserRes>>
+     */
+    @GetMapping("")
+    public BaseResponse<List<GetUserRes>> getUser(@RequestParam(required = false) String search){
+        try{
+            List<GetUserRes> getUserResList = userProvider.getUser(search);
+            return new BaseResponse<>(getUserResList);
+        } catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
+
 
 
 }
