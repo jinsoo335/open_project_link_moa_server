@@ -92,3 +92,10 @@
 ### yml과 시크릿 키 위치
 - 시크릿 키 : config 아래
 - yml : resources
+
+### terminal 나가는 것
+- ctrl+c
+
+### query string, path variable
+- query string : 말 그대로 string을 주로 넣음
+- path variable: 보통 정수값을 넣음.
