@@ -8,5 +8,11 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class GetAlertRes {
+    private int alertIdx;
+    private String alertText;
+    private int alertType;
+    private int sendUserIdx;
+    private int receiveUserIdx;
+    private int folderIdx;
 
 }
