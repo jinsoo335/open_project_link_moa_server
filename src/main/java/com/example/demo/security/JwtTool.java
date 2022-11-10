@@ -1,7 +1,7 @@
 package com.example.demo.security;
 
 import com.example.demo.config.BaseException;
-import com.example.demo.config.secret.Secret;
+//import com.example.demo.config.secret.Secret;     yml으로 jwt secret key 값 이동
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
