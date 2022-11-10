@@ -31,4 +31,13 @@ public class AlertProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+    public int checkExistAlert(int userIdx, int alertIdx) throws BaseException{
+        try{
+            int res = alertDao.checkAlert(userIdx, alertIdx);
+            return res;
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
 }
