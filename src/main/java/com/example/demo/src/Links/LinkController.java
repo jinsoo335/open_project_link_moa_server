@@ -24,8 +24,8 @@ public class LinkController {
     }
 
     //링크 불러오기 API
-    @GetMapping("")
-    public BaseResponse<List<GetLinkRes>> getLinks(@RequestParam int folderIdx){
+    @GetMapping("/{folderIdx}")
+    public BaseResponse<List<GetLinkRes>> getLinks(@PathVariable ("folderIdx") int folderIdx){
         try{
             List<GetLinkRes> getLinkRes = linkProvider.getLinks(folderIdx);
             return new BaseResponse<>(getLinkRes);
@@ -86,7 +86,7 @@ public class LinkController {
     public BaseResponse<String> deleteLink(@PathVariable ("linkIdx") int linkIdx){
         try{
             DeleteLinkRes deleteLinkRes = linkService.deleteLink(linkIdx);
-            return new BaseResponse<>(linkIdx + "번 링크를 삭제했습니다.");
+            return new BaseResponse<>(deleteLinkRes.getLinkIdx() + "번 링크를 삭제했습니다.");
         } catch (BaseException e){
             return new BaseResponse<>(e.getStatus());
         }
