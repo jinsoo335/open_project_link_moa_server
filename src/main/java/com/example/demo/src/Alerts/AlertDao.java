@@ -24,7 +24,8 @@ public class AlertDao {
                 "    alertType,\n" +
                 "    sendUserIdx,\n" +
                 "    receiveUserIdx,\n" +
-                "    ifnull(folderIdx, 0) as folderIdx\n" +
+                "    ifnull(folderIdx, 0) as folderIdx,\n" +
+                "    ifnull(linkIdx, 0) as linkIdx\n" +
                 "from Alerts\n" +
                 "where receiveUserIdx = ?\n" +
                 "order by createdAt desc;";
@@ -37,7 +38,8 @@ public class AlertDao {
                         rs.getInt("alertType"),
                         rs.getInt("sendUserIdx"),
                         rs.getInt("receiveUserIdx"),
-                        rs.getInt("folderIdx")
+                        rs.getInt("folderIdx"),
+                        rs.getInt("linkIdx")
                 ), getAlertParam);
     }
 

@@ -14,5 +14,5 @@ public class GetAlertRes {
     private int sendUserIdx;
     private int receiveUserIdx;
     private int folderIdx;
-
+    private int linkIdx;
 }
