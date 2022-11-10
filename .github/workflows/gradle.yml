@@ -30,7 +30,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        files: ${{env.Secret_PATH}}
+        jwt.JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
     
     
     - name: Grant execute permission for gradlew
