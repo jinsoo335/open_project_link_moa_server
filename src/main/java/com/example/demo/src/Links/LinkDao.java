@@ -37,7 +37,7 @@ public class LinkDao {
 
     }
 
-    public PostCreateLinkRes postCreateLink(PostCreateLinkReq postCreateLinkReq) {
+    public PostCreateLinkRes postCreateLink(int userIdx,PostCreateLinkReq postCreateLinkReq) {
         String createQuery = "insert into Links (linkUrl,folderIdx,linkAlias) VALUES (?,?,?);";
         Object[] createParams = new Object[]{
                 postCreateLinkReq.getLinkUrl(),
@@ -47,6 +47,8 @@ public class LinkDao {
         };
 
         this.jdbcTemplate.update(createQuery, createParams);
+
+        // folderIdx - userIdx 이용 체크
 
 
         String createResQuery = "select last_insert_id();";
@@ -92,9 +94,25 @@ public class LinkDao {
 
         return this.jdbcTemplate.queryForObject(checkLinkQuery, int.class, checkLinkParams);
     }
+    /**
+     * 해당 폴더가 유저의 것인지 확인
+     * linkIdx 값과 folderIdx 값을 가지고 확인
+     * @param userIdx,linkIdx
+     * @return 존재하면 1, 없으면 0
+     */
+    public int checkFolderUser(int userIdx,int folderIdx) {
+        String checkLinkQuery = "select exists(select folderIdx from Folders where folderIdx =? and ownerUserIdx = ?)" ;
+        Object[] checkLinkParams= {
+                folderIdx,
+                userIdx
+
+        };
+
+        return this.jdbcTemplate.queryForObject(checkLinkQuery, int.class, checkLinkParams);
+    }
 
     /**
-     * 해당 링크가 존재하는지 확인
+     * 해당 링크별칭이 존재하는지 확인
      * linkName과 linkIdx 값으로 확인
      * @param linkAlias
      * @return 존재하면 1, 없으면 0
@@ -122,4 +140,25 @@ public class LinkDao {
 
         return new DeleteLinkRes(linkIdx);
     }
+
+    /**
+     * 해당 링크가 유저의 것인지 확인
+     * linkIdx 값과 linkIdx 값을 가지고 확인
+     * @param userIdx,linkIdx
+     * @return 존재하면 1, 없으면 0
+     */
+    public int checkLinkUser(int userIdx,int linkIdx) {
+        String checkLinkQuery = "select exists(\n" +
+                "select Links.linkIdx\n" +
+                "from Links,Folders\n" +
+                "where Links.folderIdx=Folders.folderIdx and Links.linkIdx = ? and Folders.ownerUserIdx = ?)" ;
+        Object[] checkLinkParams= {
+                linkIdx,
+                userIdx
+
+        };
+
+        return this.jdbcTemplate.queryForObject(checkLinkQuery, int.class, checkLinkParams);
+    }
+
 }

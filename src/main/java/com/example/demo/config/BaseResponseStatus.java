@@ -41,17 +41,16 @@ public enum BaseResponseStatus {
     FOLDERS_NOT_EXIST_FOLDER(false, 2054, "해당 폴더가 존재하지 않습니다."),
     FOLDERS_DELETE_FAILED(false, 2055, "폴더 삭제에 실패했습니다."),
     FOLDERS_DUPLICATE_FOLDER_NAME(false, 2056, "중복된 폴더 이름이 있습니다."),
+    FOLDERS_NOT_HAVE_USERS(false,2057,"해당 유저의 폴더가 아닙니다."),
 
 
     //Links
-    LINKS_EMPTY_LINK_NAME(false, 2060, "링크 생성 시 별칭이 필요합니다."),
-    LINKS_UNABLE_LENGTH_LINK_NAME(false, 2061, "링크 별칭의 길이를 맞춰주세요."),
-    LINKS_EXIST_LINK_NAME(false,2062, "같은 별칭의 링크가 이미 있습니다."),
-    LINKS_SPECIAL_CHAR_LINK(false, 2063, "링크 별칭에 특수문자를 사용할 수 없습니다."),
-    LINKS_NOT_EXIST_LINK(false, 2064, "해당 링크가 존재하지 않습니다."),
-    LINKS_DELETE_FAILED(false, 2065, "링크 삭제에 실패했습니다."),
-
-
+    LINKS_EMPTY_LINK_NAME(false, 2100, "링크 생성 시 별칭이 필요합니다."),
+    LINKS_UNABLE_LENGTH_LINK_NAME(false, 2101, "링크 별칭의 길이를 맞춰주세요."),
+    LINKS_SPECIAL_CHAR_LINK(false, 2102, "링크 별칭에 특수문자를 사용할 수 없습니다."),
+    LINKS_NOT_EXIST_LINK(false, 2103, "해당 링크가 존재하지 않습니다."),
+    LINKS_DELETE_FAILED(false, 2104, "링크 삭제에 실패했습니다."),
+    LINKS_NOT_HAVE_USERS(false,2105,"해당 유저의 링크가 아닙니다."),
 
 
 

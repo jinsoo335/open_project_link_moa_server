@@ -23,27 +23,40 @@ public class LinkService {
     }
 
     public PostCreateLinkRes postCreateLink(PostCreateLinkReq postCreateLinkReq) throws BaseException {
-        try{
-            int userIdx = JwtTool.getUserIdx();
+        int userIdx = JwtTool.getUserIdx();
 
-            PostCreateLinkRes postCreateLinkRes = linkDao.postCreateLink(postCreateLinkReq);
+        // 해당 유저에게 폴더가 존재하는지 확인
+        if(linkProvider.checkFolderUser(userIdx,postCreateLinkReq.getFolderIdx()) == 0){
+            throw new BaseException(FOLDERS_NOT_HAVE_USERS);
+        }
+        try{
+
+            PostCreateLinkRes postCreateLinkRes = linkDao.postCreateLink(userIdx,postCreateLinkReq);
+
+
             return postCreateLinkRes;
+
+
 
         } catch (Exception e){
             throw new BaseException(DATABASE_ERROR);
         }
     }
     public PatchLinkRes modifyLink(PatchLinkReq patchLinkReq) throws BaseException{
+        int userIdx = JwtTool.getUserIdx();
+
+        // 수정하고자 하는 이가 해당 링크의 주인인지에 대해 확인
+        if(linkProvider.checkLinkUser(userIdx,patchLinkReq.getLinkIdx())==0){
+
+            throw new BaseException(LINKS_NOT_HAVE_USERS);
+        }
+
 
         // 해당 링크가 존재하는지 확인
         if(linkProvider.checkLink(patchLinkReq.getLinkIdx()) == 0){
             throw new BaseException(LINKS_NOT_EXIST_LINK);
         }
 
-        // 다른 링크 중에서 변경하고자 하는 이름을 가진 링크가 있는지 확인
-        if(linkProvider.checkLinkAlias(patchLinkReq.getUpdateLinkAlias()) == 1){
-            throw new BaseException(LINKS_EXIST_LINK_NAME);
-        }
 
         try{
             PatchLinkRes patchLinkRes = linkDao.modifyLink(patchLinkReq);
@@ -56,6 +69,13 @@ public class LinkService {
 
     }
     public DeleteLinkRes deleteLink(int linkIdx) throws BaseException {
+        int userIdx = JwtTool.getUserIdx();
+
+        // 수정하고자 하는 이가 해당 링크의 주인인지에 대해 확인
+        if(linkProvider.checkLinkUser(userIdx,linkIdx)==0){
+
+            throw new BaseException(LINKS_NOT_HAVE_USERS);
+        }
 
         // 해당 링크가 존재하는지 확인
         if(linkProvider.checkLink(linkIdx) == 0){
