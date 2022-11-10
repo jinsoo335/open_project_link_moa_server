@@ -16,6 +16,9 @@ on:
 permissions:
   contents: read
 
+env:
+  Secret_PATH: ${{secrets.JWT_SECRET_KEY}}
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -27,7 +30,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
-        JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
+        files: ${{env.Secret_PATH}}
     
     
     - name: Grant execute permission for gradlew
