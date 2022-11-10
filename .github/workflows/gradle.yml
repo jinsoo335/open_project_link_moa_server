@@ -31,8 +31,13 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         jwt.JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
-    
-    
+        spring.application: demo
+        spring.datasource.platform: mysql
+        spring.datasource.url: ${{secrets.DATASOURCE_URL}}
+        spring.datasource.username: ${{secrets.DATASOURCE_USERNAME}}
+        spring.datasource.password: ${{secrets.DATASOURCE_PASSWORD}}
+        spring.datasource.driver-class-name: com.mysql.cj.jdbc.Driver
+        
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
       
