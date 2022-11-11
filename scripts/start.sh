@@ -2,6 +2,9 @@
 
 REPOSITORY=/home/ubuntu/action
 
+chmod -R 777 $REPOSITORY
+
+
 sh $REPOSITORY/gradlew clean build
 
 
