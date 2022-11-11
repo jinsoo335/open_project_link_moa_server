@@ -1,3 +1,4 @@
+#!/bin/bash
 
 PROJECT_ROOT="/home/ubuntu/open_project_link_moa_server"
 JAR_FILE="/build/libs/demo-0.0.1-SNAPSHOT.jar"
