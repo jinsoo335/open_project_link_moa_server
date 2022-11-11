@@ -1,0 +1,5 @@
+19:18:30.672 ERROR [File:FolderProvider.java] [Func:getFolders] [Line:32] [Message:[]]- []
+19:19:31.904 ERROR [File:FolderProvider.java] [Func:getFolders] [Line:32] [Message:[]]- []
+19:19:31.905 ERROR [File:FolderProvider.java] [Func:getFolders] [Line:33] [Message:26````]- 26````
+19:19:53.304 ERROR [File:FolderProvider.java] [Func:getFolders] [Line:32] [Message:[com.example.demo.src.Folders.model.GetFolderRes@1b17a6b6, com.example.demo.src.Folders.model.GetFolderRes@1f28310c]]- [com.example.demo.src.Folders.model.GetFolderRes@1b17a6b6, com.example.demo.src.Folders.model.GetFolderRes@1f28310c]
+19:19:53.307 ERROR [File:FolderProvider.java] [Func:getFolders] [Line:33] [Message:27````]- 27````
