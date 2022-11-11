@@ -20,7 +20,7 @@ echo "> 새 어플리케이션 배포"
 
 echo "> Build 파일 복사"
 
-cp $REPOSITORY/build/build/libs/*.jar $REPOSITORY/jar/
+cp $REPOSITORY/build/libs/*.jar $REPOSITORY/jar/
 
 JAR_NAME=$(ls $REPOSITORY/jar/ |grep 'build/libs/demo-0.0.1-SNAPSHOT.jar' | tail -n 1)
 
