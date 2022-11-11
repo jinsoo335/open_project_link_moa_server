@@ -30,6 +30,7 @@ jobs:
       with:
         java-version: '11'
         distribution: 'temurin'
+        server.port: ${{secrets.PORT}}
         jwt.JWT_SECRET_KEY: ${{secrets.JWT_SECRET_KEY}}
         spring.application: demo
         spring.datasource.platform: mysql
