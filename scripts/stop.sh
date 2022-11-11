@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env sh
 
 PROJECT_ROOT="/home/ubuntu/action"
 JAR_FILE="/build/libs/demo-0.0.1-SNAPSHOT.jar"
