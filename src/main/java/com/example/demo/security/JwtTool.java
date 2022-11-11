@@ -21,12 +21,14 @@ import static com.example.demo.config.BaseResponseStatus.INVALID_JWT;
 @Service
 public class JwtTool {
 
+    @Value("${jwt.JWT_SECRET_KEY}")
+    private String temp;
 
     private static String JWT_SECRET_KEY;
 
     @Value("${jwt.JWT_SECRET_KEY}")
     private void setJwtSecretKey(String temp){
-        JWT_SECRET_KEY = temp;
+        JwtTool.JWT_SECRET_KEY = temp;
     }
 
     private static final int JWT_EXPIRAION = 1000 *60 * 60 * 24 * 365;
