@@ -9,6 +9,8 @@ DEPLOY_LOG="$PROJECT_ROOT/deploy.log"
 
 TIME_NOW=$(date +%c)
 
+./gradlew clean build
+
 echo "$TIME_NOW > $JAR_FILE 파일 복사" >> $DEPLOY_LOG
 nohup java -jar $JAR_FILE > $APP_LOG 2> $ERROR_LOG &
 
