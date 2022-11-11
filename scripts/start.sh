@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-REPOSITORY=/home/ubuntu/action
+REPOSITORY=./home/ubuntu/action
 
 chmod -R 777 $REPOSITORY
 
