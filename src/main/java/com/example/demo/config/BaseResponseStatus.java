@@ -68,6 +68,17 @@ public enum BaseResponseStatus {
 
 
 
+    // Alerts
+    ALERTS_NOT_EXIST_ALERT(false, 2150, "알림이 존재하지 않습니다."),
+    ALERTS_EMPTY_RECEIVE_USERIDX(false, 2151, "알림에는 받는 사람 번호가 필요합니다."),
+    ALERTS_EMPTY_FOLDERIDX(false, 2152, "폴더 공유 알림에는 폴더 번호가 필요합니다."),
+    ALERTS_EMPTY_LINKIDX(false, 2153, "링크 공유 알림에는 링크 번호가 필요합니다."),
+    ALERTS_EMPTY_ALERT_TEXT(false, 2154, "알림 내용이 필요합니다."),
+
+
+
+
+
 
     /**
      * 3000 : Response 오류

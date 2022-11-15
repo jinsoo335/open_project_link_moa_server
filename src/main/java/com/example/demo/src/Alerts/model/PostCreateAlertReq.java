@@ -7,11 +7,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class GetAlertRes {
-    private int alertIdx;
+public class PostCreateAlertReq {
     private String alertText;
     private int alertType;
-    private int sendUserIdx;
     private int receiveUserIdx;
     private int folderIdx;
     private int linkIdx;

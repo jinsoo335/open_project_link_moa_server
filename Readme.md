@@ -91,7 +91,7 @@
 
 ### yml과 시크릿 키 위치
 - 시크릿 키 : config 아래
-- yml : resources
+- yml : src/main/resources/application.yml
 
 ### terminal 나가는 것
 - ctrl+c
