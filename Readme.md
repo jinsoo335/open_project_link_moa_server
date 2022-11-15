@@ -1,3 +1,5 @@
+[![Java CI with Gradle](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml/badge.svg)](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml)
+
 ### 동작 순서
 - `Request` -> Controller -> Service/Provider -> DAO -> DB
 - DB -> DAO -> Service/Provider -> Controller -> `Response`
