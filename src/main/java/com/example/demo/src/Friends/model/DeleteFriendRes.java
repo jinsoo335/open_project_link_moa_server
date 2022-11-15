@@ -7,8 +7,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @AllArgsConstructor
-public class PostCreateFriendRelationReq {
-    private int firstUserIdx;
-    private int secondUserIdx;
-
+public class DeleteFriendRes {
+    private int deletedFriendIdx;
 }

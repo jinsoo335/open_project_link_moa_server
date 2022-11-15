@@ -91,4 +91,23 @@ public class LinkController {
             return new BaseResponse<>(e.getStatus());
         }
     }
+
+    /**
+     * 링크 복사 API
+     * 링크 번호와 링크를 받는사람의 번호를 갖고, 링크를 복사한다
+     * LinkFolder에서는 알림을 보내고 이를 수락할 때, 링크가 복사된다.
+     * 받는 사람이 수락 버튼을 눌렀을때 호출되는 API이다.
+     * @Param postCopyLinkReq
+     * @return
+     */
+    @PostMapping("/copy")
+    public BaseResponse<PostCopyLinkRes> copyLink(@RequestBody PostCopyLinkReq postCopyLinkReq){
+        try{
+            PostCopyLinkRes postCopyLinkRes = linkService.copyLink(postCopyLinkReq);
+            return new BaseResponse<>(postCopyLinkRes);
+        }catch (BaseException e){
+            return new BaseResponse<>(e.getStatus());
+        }
+    }
+
 }

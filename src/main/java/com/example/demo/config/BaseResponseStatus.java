@@ -51,6 +51,21 @@ public enum BaseResponseStatus {
     LINKS_NOT_EXIST_LINK(false, 2103, "해당 링크가 존재하지 않습니다."),
     LINKS_DELETE_FAILED(false, 2104, "링크 삭제에 실패했습니다."),
     LINKS_NOT_HAVE_USERS(false,2105,"해당 유저의 링크가 아닙니다."),
+    LINKS_NOT_EXIST_LINK_ALIAS(false,2106,"해당 링크별칭에 맞는 링크가 존재하지 않습니다."),
+
+    LINKS_EXIST_LINK_ALIAS(false,2107, "같은 이름의 링크가 이미 있습니다."),
+
+
+    //Friend
+    FRIEND_NOT_MY_SELF(false,2200,"스스로와 친구가 될 수는 없습니다."),
+    FRIEND_NOT_IN_USERS(false,2201,"친구 요청한 친구가 유저 목록에 없습니다."),
+    FRIEND_EXIST_ALREADY(false,2202,"이미 친구목록에 있습니다."),
+    FRIEND_NOT_EXIST(false,2202,"친구 목록에 없는 사람입니다."),
+    FRIEND_NOT_MY_SELF_DELETE(false,2203,"본인을 친구목록에서 삭제할 수 없습니다."),
+    FRIEND_NOT_IN_USERS_DELETE(false,2204,"친구목록에서 삭제할 친구가 유저 목록에 없습니다."),
+
+
+
 
 
 

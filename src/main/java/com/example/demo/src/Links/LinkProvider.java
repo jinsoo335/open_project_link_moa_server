@@ -3,6 +3,7 @@ package com.example.demo.src.Links;
 import com.example.demo.config.BaseException;
 import com.example.demo.security.JwtTool;
 import com.example.demo.src.Links.model.GetLinkRes;
+import com.fasterxml.jackson.databind.ser.Serializers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,5 +83,36 @@ public class LinkProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+
+
+    public int checkLinkAlias(int userIdx,int folderIdx,String linkAlias) throws BaseException{
+        try{
+            int res= linkDao.checkLinkAlias(userIdx,folderIdx,linkAlias);
+            return res;
+        }catch(Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
+
+
+    public String getLinkAlias(int linkIdx) throws BaseException{
+        try{
+            String linkAlias = linkDao.getLinkAlias(linkIdx);
+            return linkAlias;
+        }catch(Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+    public String getLinkUrl(int linkIdx) throws BaseException{
+        try{
+            String linkUrl = linkDao.getLinkAlias(linkIdx);
+            return linkUrl;
+        }catch(Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 
 }

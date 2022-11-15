@@ -113,14 +113,19 @@ public class LinkDao {
 
     /**
      * 해당 링크별칭이 존재하는지 확인
+     * 다만, 같은 폴더 일경우 까지..
      * linkName과 linkIdx 값으로 확인
      * @param linkAlias
      * @return 존재하면 1, 없으면 0
      */
-    public int checkLinkAlias(String linkAlias) {
-        String checkLinkQuery = "select exists(select linkIdx from Links where linkAlias = ?);\n";
+    public int checkLinkAlias(int userIdx,int folderIdx, String linkAlias) {
+        String checkLinkQuery = "select exists(select  linkIdx from Links,Users,Folders\n" +
+                "                                where (Links.folderIdx = Folders.folderIdx and Folders.ownerUserIdx = Users.userIdx) and (ownerUserIdx=? and linkAlias=? and Folders.folderIdx=?)  )";
         Object[] checkLinkParams= {
-                linkAlias
+                userIdx,
+                linkAlias,
+                folderIdx
+
         };
 
         return this.jdbcTemplate.queryForObject(checkLinkQuery, int.class, checkLinkParams);
@@ -159,6 +164,60 @@ public class LinkDao {
         };
 
         return this.jdbcTemplate.queryForObject(checkLinkQuery, int.class, checkLinkParams);
+    }
+
+    /**
+     * 링크의 이름 받아오는 함수
+     * 링크 사본 생성하는 데 이용됨.
+     */
+    public String getLinkAlias(int linkIdx){
+        String getLinkAliasQuery = "select linkAlias\n" +
+                "from Links\n" +
+                "where linkIdx = ?";
+        int getLinkAliasParam = linkIdx;
+
+        return this.jdbcTemplate.queryForObject(getLinkAliasQuery, String.class,getLinkAliasParam);
+    }
+
+    /**
+     * 링크의 url 받아오는 함수
+     * 링크 사본 생성하는 데 이용됨.
+     */
+    public String getLinkUrl(int linkIdx){
+        String getLinkAliasQuery = "select linkUrl\n" +
+                "from Links\n" +
+                "where linkIdx = ?";
+        int getLinkAliasParam = linkIdx;
+
+        return this.jdbcTemplate.queryForObject(getLinkAliasQuery, String.class,getLinkAliasParam);
+    }
+
+
+
+    /**
+     * 링크 복사API
+     * 전달받은 링크의 IDX로 복사할 링크를 찾아
+     * 전달받은 receeiveUserIdx에 해당하는 사용자에 복사 링크를 추가
+     *
+     */
+    public PostCopyLinkRes copyLink(PostCopyLinkReq postCopyLinkReq, String linkAlias,String linkUrl){
+
+        //링크 이름 복사 부분
+        String copyLinkQuery = "insert into Links (linkUrl,folderIdx,linkAlias) VALUES (?,?,?)";
+        Object[] copyLinkParams={
+                linkUrl,
+                postCopyLinkReq.getFolderIdx(),
+                linkAlias
+        };
+        this.jdbcTemplate.update(copyLinkQuery,copyLinkParams);
+
+        // 생성한 링크 (copy된)의 idx값 가져오기
+        String lastCreateLinkQuery = "select last_insert_id()";
+        int linkIdx  = this.jdbcTemplate.queryForObject(lastCreateLinkQuery,int.class);
+
+
+
+        return new PostCopyLinkRes(linkIdx);
     }
 
 }
