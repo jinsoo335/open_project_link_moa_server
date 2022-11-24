@@ -114,4 +114,14 @@ public class UserProvider {
             throw new BaseException(DATABASE_ERROR);
         }
     }
+
+
+    public String getUserImageUrl(int userIdx) throws BaseException{
+        try{
+            return userDao.getUserImageUrl(userIdx);
+        } catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
+    }
+
 }

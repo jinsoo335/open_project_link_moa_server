@@ -32,6 +32,7 @@ public enum BaseResponseStatus {
     USERS_NOT_EXIST_USER(false, 2016, "사용자가 존재하지 않습니다."),
     USERS_UNABLE_USER_NICKNAME(false, 2017, "사용할 수 없는 닉네임입니다."),
 
+    USERS_EMPTY_IMAGE(false, 2018, "빈 이미지 입니다."),
 
     // Folders
     FOLDERS_EMPTY_FOLDER_NAME(false, 2050, "폴더 생성 시 이름이 필요합니다."),
@@ -76,9 +77,11 @@ public enum BaseResponseStatus {
     /**
      * 4000 : Database, Server 오류
      */
-    DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
-    SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다.");
 
+    DATABASE_ERROR(false, 4000, "데이터베이스 연결에 실패하였습니다."),
+    SERVER_ERROR(false, 4001, "서버와의 연결에 실패하였습니다."),
+    S3_SERVER_ERROR(false, 4002, "S3 서버와의 연결에 실패하였습니다."),
+    FILE_SIZE_LIMIT_OVER(false, 4003, "파일 사이즈가 너무 큽니다.");
 
 
 

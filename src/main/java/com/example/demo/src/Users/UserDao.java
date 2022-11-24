@@ -152,4 +152,38 @@ public class UserDao {
                         rs.getString("profileImageUrl")
                 ), getUserParam);
     }
+
+    public int pushUserImage(int userIdx, String imageUrl) {
+        String pushUserImageQuery = "update Users\n" +
+                "set profileImageUrl = ?, updatedAt = current_timestamp\n" +
+                "where userIdx = ?;";
+        Object[] pushUserImageParams = {
+                imageUrl,
+                userIdx
+
+        };
+
+        this.jdbcTemplate.update(pushUserImageQuery, pushUserImageParams);
+
+        String updateUserGetQuery = "select\n" +
+                "    userIdx\n" +
+                "from Users\n" +
+                "order by updatedAt desc limit 1;";
+        return this.jdbcTemplate.queryForObject(updateUserGetQuery, int.class);
+
+    }
+
+    public String getUserImageUrl(int userIdx) {
+        String getUserImageUrlQuery = "select profileImageUrl\n" +
+                "from Users\n" +
+                "where userIdx = ?;";
+        Object getUserImageUrlParam = userIdx;
+
+        return this.jdbcTemplate.queryForObject(
+                getUserImageUrlQuery,
+                String.class,
+                getUserImageUrlParam
+        );
+
+    }
 }

@@ -60,7 +60,7 @@ public class FolderController {
                 return new BaseResponse<>(FOLDERS_UNABLE_LENGTH_FOLDER_NAME);
             }
 
-            if(!postCreateFolderReq.getFolderName().matches("\"^([ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9,. ])*$\"")){
+            if(!postCreateFolderReq.getFolderName().matches("^([ㄱ-ㅎㅏ-ㅣ가-힣a-zA-Z0-9,. ])*$")){
                 return new BaseResponse<>(FOLDERS_UNABLE_WORD_FOLDER_NAME);
             }
 

@@ -25,6 +25,8 @@ repositories {
 dependencies {
     implementation 'org.jetbrains:annotations:19.0.0'
 
+    // aws s3
+    implementation "com.amazonaws:aws-java-sdk-s3:1.12.281"
 
     // Spring Boot Starter
     testImplementation ('org.springframework.boot:spring-boot-starter-test')

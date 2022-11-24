@@ -57,6 +57,8 @@ public class AlertService {
             throw new BaseException(USERS_NOT_EXIST_USER);
         }
 
+
+
         // 폴더 보낼 경우 자신의 폴더가 맞는지 확인
         if(postCreateAlertReq.getAlertType() == 1
                 && folderProvider.checkFolder(sendUserIdx, postCreateAlertReq.getFolderIdx()) == 0){

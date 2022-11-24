@@ -13,5 +13,5 @@ then
   echo "현재 실행중인 애플리케이션이 없습니다"
 else
   echo "실행중인 $CURRENT_PID 애플리케이션이 종료 "
-  kill -15 $CURRENT_PID
+  kill -9 $CURRENT_PID
 fi
