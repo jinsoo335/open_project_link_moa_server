@@ -1,3 +1,5 @@
+[![Java CI with Gradle](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml/badge.svg)](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml)
+
 ### 동작 순서
 - `Request` -> Controller -> Service/Provider -> DAO -> DB
 - DB -> DAO -> Service/Provider -> Controller -> `Response`
@@ -5,6 +7,18 @@
 - Service GET을 제외한 나머지 RESTAPI 요청처리 -> `@Service` 사용: 내부에서 자바 로직을 처리함 
 - Provider 는 GET 처리 ( Get이 빈도가 높음)  -> `@Service` 사용: 내부에서 자바 로직을 처리함
 - DAO는 service와 Provider 둘다 호출함.  -> `@Repository` 사용: DB나 파일같은 외부 I/O 작업을 처리함
+
+
+### 이미지 처리...
+  `업로드`
+  - Multipart로 이미지 객체를 전달 받는다.
+  - 전달 받은 이미지에 대한 고유 아이디를 생성해서 이미지와 함께 S3에 보낸다.
+  - 해당 고유 아이디를 사용자 table에 저장(mysql DB)
+  
+  `다운로드`
+  - 사용자 번호를 받아 DB에서 url 정보를 가져온다.
+  - url 정보를 바탕으로 s3에서 이미지를 가져온다.
+  - 가져온 이미지를 Multipart로 전달한다.
 
 
 ### BaseException

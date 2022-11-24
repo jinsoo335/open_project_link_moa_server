@@ -29,6 +29,11 @@ public class LinkService {
         if(linkProvider.checkFolderUser(userIdx,postCreateLinkReq.getFolderIdx()) == 0){
             throw new BaseException(FOLDERS_NOT_HAVE_USERS);
         }
+        // 해당 링크의 이름이 해당 폴더에 이미 있는지 확인
+        if(linkProvider.checkLinkAlias(userIdx,postCreateLinkReq.getFolderIdx(),postCreateLinkReq.getLinkAlias())==1){
+            throw new BaseException(LINKS_EXIST_LINK_ALIAS);
+        }
+
         try{
 
             PostCreateLinkRes postCreateLinkRes = linkDao.postCreateLink(userIdx,postCreateLinkReq);
@@ -96,6 +101,52 @@ public class LinkService {
         }
 
         return deleteFolderRes;
+
+    }
+
+    public PostCopyLinkRes copyLink(PostCopyLinkReq postCopyLinkReq)throws BaseException{
+        int userIdx = JwtTool.getUserIdx();
+
+        // 해당 링크가 존재하는지 확인
+        if(linkProvider.checkLink(postCopyLinkReq.getLinkIdx()) == 0){
+            throw new BaseException(LINKS_NOT_EXIST_LINK);
+        }
+
+
+
+        //링크 Alias,Url가져오기
+        String linkAlias = linkProvider.getLinkAlias(postCopyLinkReq.getLinkIdx());//링크 idx에 맞는 alias가져옴
+        String linkUrl = linkProvider.getLinkUrl(postCopyLinkReq.getLinkIdx());//링크 idx에 맞는 alias가져옴
+
+
+        //복사하고자 하는 링크와 동일한 이름의 링크가 존재하는 지 확인
+        // 있는 경우엔 (1),(2) 붙이기
+        int i = 1;
+        StringBuffer sb = new StringBuffer(linkAlias);
+
+        while(true){
+            if(linkProvider.checkLinkAlias(userIdx, postCopyLinkReq.getFolderIdx(),sb.toString())==0){
+                linkAlias = sb.toString();
+                break;
+            }
+            if(i > 1){
+                int digit = String.valueOf(i).length();
+                sb.replace(sb.length() - 1 - digit,sb.length() -digit, String.valueOf(i));
+
+            }
+            else{
+                sb.append("(1)");
+            }
+            i++;
+
+        }
+
+        try{
+            PostCopyLinkRes postCopyLinkRes = linkDao.copyLink(postCopyLinkReq,linkAlias,linkUrl);
+            return postCopyLinkRes;
+        }catch (Exception e){
+            throw new BaseException(DATABASE_ERROR);
+        }
 
     }
 }
