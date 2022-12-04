@@ -30,7 +30,16 @@ public class AlertDao {
                 "    ifnull(folderIdx, 0) as folderIdx,\n" +
                 "    ifnull(linkIdx, 0) as linkIdx,\n" +
                 "    (select U.nickname from Users U where Alerts.sendUserIdx = U.userIdx) as nickname,\n" +
-                "    (select U.profileImageUrl from Users U where Alerts.sendUserIdx = U.userIdx) as profileImageUrl\n" +
+                "    (select U.profileImageUrl from Users U where Alerts.sendUserIdx = U.userIdx) as profileImageUrl,\n" +
+                "    case\n" +
+                "        when Alerts.folderIdx is null then null\n" +
+                "        ELSE (select F.folderName from Folders F where Alerts.folderIdx = F.folderIdx)\n" +
+                "    END as folderName,\n" +
+                "    case\n" +
+                "        when Alerts.folderIdx is null then null\n" +
+                "        when Alerts.linkIdx is null then null\n" +
+                "        ELSE (select L.linkAlias from Links L where Alerts.linkIdx = L.linkIdx)\n" +
+                "    END as linkName\n" +
                 "from Alerts\n" +
                 "where receiveUserIdx = ?\n" +
                 "order by createdAt desc;";
@@ -46,7 +55,9 @@ public class AlertDao {
                         rs.getInt("folderIdx"),
                         rs.getInt("linkIdx"),
                         rs.getString("nickname"),
-                        rs.getString("profileImageUrl")
+                        rs.getString("profileImageUrl"),
+                        rs.getString("folderName"),
+                        rs.getString("linkName")
                 ), getAlertParam);
     }
 

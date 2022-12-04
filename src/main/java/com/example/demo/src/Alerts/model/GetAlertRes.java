@@ -18,5 +18,7 @@ public class GetAlertRes {
     private String nickname;
     private String profileImageUrl;
 
+    private String folderName;
+    private String linkName;
 
 }
