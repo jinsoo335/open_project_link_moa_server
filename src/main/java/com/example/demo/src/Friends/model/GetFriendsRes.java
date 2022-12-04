@@ -10,6 +10,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class GetFriendsRes {
     private int userIdx;
+    private String id;
     private String nickname;
     private String profileImageUrl;
 }

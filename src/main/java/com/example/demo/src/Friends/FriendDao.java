@@ -54,10 +54,10 @@ public class FriendDao {
      *
      */
     public List<GetFriendsRes> getFriends(int userIdx){
-        String getFriendsQuery = "select distinct userIdx,nickname,profileImageUrl\n" +
-                "from Users,Friends\n" +
-                "where (Users.userIdx=Friends.firstUserIdx or Users.userIdx=Friends.secondUserIdx) and (firstUserIdx=? or secondUserIdx=?) and userIdx!=?\n" +
-                "order by userIdx ASC";
+        String getFriendsQuery = "select distinct userIdx,id,nickname,profileImageUrl\n" +
+                "                from Users,Friends\n" +
+                "                where (Users.userIdx=Friends.firstUserIdx or Users.userIdx=Friends.secondUserIdx) and (firstUserIdx=? or secondUserIdx=?) and userIdx!=?\n" +
+                "                order by userIdx ASC";
         Object[] getFriendsParams = new Object[]{
                 userIdx,
                 userIdx,
@@ -68,6 +68,7 @@ public class FriendDao {
         return this.jdbcTemplate.query(getFriendsQuery,
                 (rs,rowNum)->new GetFriendsRes(
                         rs.getInt("userIdx"),
+                        rs.getString("id"),
                         rs.getString("nickname"),
                         rs.getString("profileImageUrl")
                 ),getFriendsParams);
