@@ -28,7 +28,9 @@ public class AlertDao {
                 "    sendUserIdx,\n" +
                 "    receiveUserIdx,\n" +
                 "    ifnull(folderIdx, 0) as folderIdx,\n" +
-                "    ifnull(linkIdx, 0) as linkIdx\n" +
+                "    ifnull(linkIdx, 0) as linkIdx,\n" +
+                "    (select U.nickname from Users U where Alerts.sendUserIdx = U.userIdx) as nickname,\n" +
+                "    (select U.profileImageUrl from Users U where Alerts.sendUserIdx = U.userIdx) as profileImageUrl\n" +
                 "from Alerts\n" +
                 "where receiveUserIdx = ?\n" +
                 "order by createdAt desc;";
@@ -42,7 +44,9 @@ public class AlertDao {
                         rs.getInt("sendUserIdx"),
                         rs.getInt("receiveUserIdx"),
                         rs.getInt("folderIdx"),
-                        rs.getInt("linkIdx")
+                        rs.getInt("linkIdx"),
+                        rs.getString("nickname"),
+                        rs.getString("profileImageUrl")
                 ), getAlertParam);
     }
 
