@@ -190,8 +190,7 @@ public class UserController {
 
             int userIdx = userService.pushUserImage(imageUrl);
 
-
-            return new BaseResponse<>("이미지 업로드 성공");
+            return new BaseResponse<>(imageUrl);
         } catch (FileSizeLimitExceededException e){
             return new BaseResponse<>(FILE_SIZE_LIMIT_OVER);
         }catch (BaseException e) {
