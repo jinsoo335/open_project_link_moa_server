@@ -107,7 +107,7 @@ public class LinkProvider {
     }
     public String getLinkUrl(int linkIdx) throws BaseException{
         try{
-            String linkUrl = linkDao.getLinkAlias(linkIdx);
+            String linkUrl = linkDao.getLinkUrl(linkIdx);
             return linkUrl;
         }catch(Exception e){
             throw new BaseException(DATABASE_ERROR);
