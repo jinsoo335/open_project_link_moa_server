@@ -129,11 +129,21 @@ public class FolderDao {
      * @return DeleteFolderRes
      */
     public DeleteFolderRes deleteFolder(int folderIdx) {
-        String deleteFolderQuery = "delete from Folders\n" +
+
+        String deleteLinkQuery = "delete from Links\n" +
                 "where folderIdx = ?;";
         int deleteFolderParam = folderIdx;
 
+        this.jdbcTemplate.update(deleteLinkQuery, deleteFolderParam);
+
+
+        String deleteFolderQuery = "delete from Folders\n" +
+                "where folderIdx = ?;";
+        deleteFolderParam = folderIdx;
+
         this.jdbcTemplate.update(deleteFolderQuery, deleteFolderParam);
+
+
 
         return new DeleteFolderRes(folderIdx);
     }

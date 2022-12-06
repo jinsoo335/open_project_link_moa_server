@@ -15,4 +15,10 @@ public class GetAlertRes {
     private int receiveUserIdx;
     private int folderIdx;
     private int linkIdx;
+    private String nickname;
+    private String profileImageUrl;
+
+    private String folderName;
+    private String linkName;
+
 }

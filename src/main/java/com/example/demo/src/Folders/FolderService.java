@@ -65,6 +65,7 @@ public class FolderService {
     public DeleteFolderRes deleteFolder(int folderIdx) throws BaseException {
         int userIdx = JwtTool.getUserIdx();
 
+
         // 해당 폴더가 존재하는지 확인
         if(folderProvider.checkFolder(userIdx, folderIdx) == 0){
             throw new BaseException(FOLDERS_NOT_EXIST_FOLDER);

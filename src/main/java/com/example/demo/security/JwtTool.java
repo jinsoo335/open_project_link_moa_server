@@ -49,7 +49,7 @@ public class JwtTool {
 
     public static String crateJwtToken(int userIdx){
         Date now = new Date();
-        Date expireDate = new Date(now.getTime() + JWT_EXPIRAION);
+        Date expireDate = new Date(System.currentTimeMillis() + 1 * JWT_EXPIRAION);
 
         return Jwts.builder()
                 .setExpiration(expireDate)                                       // 만료 시간 생성
