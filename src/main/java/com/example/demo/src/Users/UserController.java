@@ -54,11 +54,11 @@ public class UserController {
      */
     @RequestMapping("/create")
     public BaseResponse<PostCreateUserRes> createUser(@RequestBody PostCreateUserReq postCreateUserReq){
-        if (postCreateUserReq.getId().length() > 20 || postCreateUserReq.getId().length() < 8) {
+        if (postCreateUserReq.getId().length() > 20 || postCreateUserReq.getId().length() < 4) {
             return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_ID);
         }
 
-        if(postCreateUserReq.getPassword().length() > 20 || postCreateUserReq.getPassword().length() < 8){
+        if(postCreateUserReq.getPassword().length() > 20 || postCreateUserReq.getPassword().length() < 4){
             return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_PASSWORD);
         }
 
@@ -84,11 +84,11 @@ public class UserController {
      */
     @RequestMapping("/login")
     public BaseResponse<PostLoginRes> loginUser(@RequestBody PostLoginReq postLoginReq){
-        if (postLoginReq.getId().length() > 20 || postLoginReq.getId().length() < 8) {
+        if (postLoginReq.getId().length() > 20 || postLoginReq.getId().length() < 4) {
             return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_ID);
         }
 
-        if(postLoginReq.getPassword().length() > 20 || postLoginReq.getPassword().length() < 8){
+        if(postLoginReq.getPassword().length() > 20 || postLoginReq.getPassword().length() < 4){
             return new BaseResponse<>(USERS_UNABLE_LENGTH_USER_PASSWORD);
         }
 
