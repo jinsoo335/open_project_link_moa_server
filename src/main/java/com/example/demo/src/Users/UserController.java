@@ -106,6 +106,8 @@ public class UserController {
     }
 
 
+
+
     /**
      * 닉네임으로 사용자 검색 함수
      * @param search
