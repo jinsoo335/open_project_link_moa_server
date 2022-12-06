@@ -5,6 +5,8 @@ import com.example.demo.config.BaseException;
 import com.example.demo.config.BaseResponseStatus;
 import com.example.demo.security.JwtTool;
 import com.example.demo.src.Links.model.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,9 @@ import static com.example.demo.config.BaseResponseStatus.*;
 public class LinkService {
     private final LinkDao linkDao;
     private final LinkProvider linkProvider;
+
+    final Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Autowired
     public LinkService(LinkDao linkDao,LinkProvider linkProvider) {

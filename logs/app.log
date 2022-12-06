@@ -1,1 +1,1 @@
-13:18:29.676 WARN  [File:UserController.java] [Func:uploadForm] [Line:193] [Message:https://s3.ap-northeast-2.amazonaws.com/linkfolder-deploy/images/daf34dbf-46ee-4396-8792-9b325a8a790a-img3_2.png]- https://s3.ap-northeast-2.amazonaws.com/linkfolder-deploy/images/daf34dbf-46ee-4396-8792-9b325a8a790a-img3_2.png
+11:13:20.723 WARN  [File:LinkService.java] [Func:copyLink] [Line:126] [Message:테스트: 테스트]- 테스트: 테스트
