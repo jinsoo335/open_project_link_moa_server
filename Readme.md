@@ -1,5 +1,77 @@
 [![Java CI with Gradle](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml/badge.svg)](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml)
 
+
+##본 소스코드는 링크 폴더 프로젝트에 대한 서버 부분의 코드입니다.
+
+클라이언트 부분 깃 허브 주소는 다음과 같습니다. 
+https://github.com/yujimin413/open_project_link_moa_client
+
+### 링크폴더 프로젝트 소개
+나중에 다시 보려고 북마크한 웹페이지 링크들이 쌓여 다시 찾기 어려웠던 경험이 있으신가요?
+친구들에게 링크를 전송하기 위해 채팅방에 하나하나 복사 붙여넣기 하거나,
+공유한 링크를 다시 찾기 위해 채팅방을 끝없이 스크롤한 적이 있으신가요?
+
+링크폴더를 사용하면 방문한 웹페이지 링크를 쉽게 저장하고 편하게 공유할 수 있습니다.
+
+링크폴더의 두 가지 핵심 기능 '저장'과 '공유'를 소개합니다.
+ 
+[저장]
+(1) 웹 브라우저의 공유 기능으로 링크 저장
+웹 브라우저를 탐색하다가 저장하고 싶은 링크가 있을 때 아이폰의 기본 공유 기능으로 링크폴더에 접근합니다.
+원하는 폴더를 선택하면 링크 생성 창으로 이동합니다. 링크 주소는 자동으로 입력 되어있고, 링크 별명을 직접 설정해 링크를 저장할 수 있습니다.
+링크 저장 후에는 다시 웹 브라우저 화면으로 돌아가 하던 작업을 이어갈 수 있습니다.
+(2) 앱에서 직접 저장
+링크폴더 앱에서 폴더를 생성해 목적에 따라 링크 모음을 분류할 수 있습니다.
+원하는 폴더를 선택해 링크 주소와 링크 별명을 입력하여 링크를 저장합니다.
+
+[공유]
+(1) 친구 기능 : 앱 내부에서 링크 폴더 및 개별 링크 공유
+링크폴더 유저라면 링크를 공유하기 위해 써드파티 앱을 사용하지 않아도 됩니다.
+링크폴더 내부에서 친구를 맺고, 폴더/링크공유 요청 및 수락 과정을 통해 링크를 공유할 수 있습니다.
+(2) 사본 전달 방식 : 전달 받은 폴더/링크를 편하게 수정
+링크 모음은 장기간 수정, 추가가 필요하다기 보다는 주로 단기적으로 사용하는 성격이 강합니다.
+따라서 사본 전달 방식을 채택하여 공유한 링크폴더/링크를 동시에 점유하지 않기 때문에 수정/삭제가 자유롭습니다.
+
+
+
+
+### 서버 부분 소스코드 사용법...
+본 소스코드에는 링크 폴더 프로젝트를 위해 필요한 api들을 개발한 내용이 있습니다.
+api에 대한 자세한 명세는 API_Sheet.pdf 파일에 대략적인 설명이 있고,
+api 폴더 안의 pdf들에 자세한 설명들이 있습니다.
+
+ec2서버 ubuntu 18.04LTS OS위에 nginx를 설치하여 테스트했습니다.
+데이터 베이스는 mysql을 사용했습니다.
+또한 도메인을 linkfolder.shop으로 지정하여 사용했습니다.
+
+본 소스코드를 다운받아 직접 api의 호출을 하고 싶은 경우에는 깃 허브 상의 코드를 받은 뒤에 application.yml 파일을 추가해야 합니다.
+
+application.yml 파일에 들어가야하는 내용은 다음과 같습니다.
+1. server.port  (포트 번호를 변경할 경우 필요)
+2. application.name   (application name)
+3. datasource.platform  (어떤 database를 사용하는지)
+4. datasource.url       (database의 주소)
+5. datasource.username  (database의 사용자 이름)
+6. datasource.password  (database의 사용자 비밀번호)
+7. datasource.driver-class-name   (jdbctemplate을 사용하기 위한 driver 정보)
+8. jwt.JWT_SECRET_KEY    (jwt에 적용할 secret key 정보)
+9. aws.credentials.accessKey  (s3를 사용할 경우 필요)
+10. aws.credentials.secretKey 
+11. aws.region.static
+12. aws.s3.bucket
+13. aws.s3.dir
+
+
+
+
+
+
+
+
+
+###밑으로는 본 소스코드들에 대한 설명 및 코드를 작성하면서 조사했던 부분들입니다.
+<hr>
+
 ### 동작 순서
 - `Request` -> Controller -> Service/Provider -> DAO -> DB
 - DB -> DAO -> Service/Provider -> Controller -> `Response`
