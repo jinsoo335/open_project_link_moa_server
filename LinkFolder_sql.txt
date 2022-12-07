@@ -1,0 +1,152 @@
+﻿-- 테이블 순서는 관계를 고려하여 한 번에 실행해도 에러가 발생하지 않게 정렬되었습니다.
+
+-- Users Table Create SQL
+-- 테이블 생성 SQL - Users
+CREATE TABLE Users
+(
+    `userIdx`          INT             NOT NULL    AUTO_INCREMENT COMMENT '사용자 고유값', 
+    `createdAt`        TIMESTAMP       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성일자', 
+    `updatedAt`        TIMESTAMP       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자', 
+    `status`           VARCHAR(15)     NOT NULL    DEFAULT 'enable' COMMENT '사용 가능(enable), 불 가능(disable)', 
+    `Id`               VARCHAR(20)     NOT NULL    COMMENT '사용자 id, 중복 불가', 
+    `password`         VARCHAR(200)    NOT NULL    COMMENT '비밀번호(암호화 할 수도 있어 길게)', 
+    `nickname`         VARCHAR(15)     NOT NULL    COMMENT '닉네임', 
+    `profileImageUrl`  VARCHAR(200)    NOT NULL    COMMENT '프로필 이미지', 
+     PRIMARY KEY (userIdx)
+);
+
+
+-- Folders Table Create SQL
+-- 테이블 생성 SQL - Folders
+CREATE TABLE Folders
+(
+    `folderIdx`     INT            NOT NULL    AUTO_INCREMENT COMMENT '폴더 고유번호', 
+    `createdAt`     TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성일자', 
+    `updatedAt`     TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '수정일자', 
+    `status`        VARCHAR(15)    NOT NULL    DEFAULT 'enable' COMMENT '사용 가능 여부', 
+    `folderName`    VARCHAR(45)    NOT NULL    COMMENT '폴더 이름', 
+    `ownerUserIdx`  INT            NOT NULL    COMMENT '폴더 생성한 사용자', 
+     PRIMARY KEY (folderIdx)
+);
+
+-- Foreign Key 설정 SQL - Folders(ownerUserIdx) -> Users(userIdx)
+ALTER TABLE Folders
+    ADD CONSTRAINT FK_Folders_ownerUserIdx_Users_userIdx FOREIGN KEY (ownerUserIdx)
+        REFERENCES Users (userIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Folders(ownerUserIdx)
+-- ALTER TABLE Folders
+-- DROP FOREIGN KEY FK_Folders_ownerUserIdx_Users_userIdx;
+
+
+-- Links Table Create SQL
+-- 테이블 생성 SQL - Links
+CREATE TABLE Links
+(
+    `linkIdx`    INT             NOT NULL    AUTO_INCREMENT COMMENT '링크 고유번호', 
+    `createdAt`  TIMESTAMP       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일자', 
+    `updatedAt`  TIMESTAMP       NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '수정 일자', 
+    `status`     VARCHAR(15)     NOT NULL    DEFAULT 'enable' COMMENT '사용 가능 여부', 
+    `linkUrl`    VARCHAR(200)    NOT NULL    COMMENT '링크 주소', 
+    `folderIdx`  INT             NOT NULL    COMMENT '링크가 들어갈 폴더 번호', 
+    `linkAlias`  VARCHAR(15)     NOT NULL    COMMENT '링크 별칭', 
+     PRIMARY KEY (linkIdx)
+);
+
+-- Foreign Key 설정 SQL - Links(folderIdx) -> Folders(folderIdx)
+ALTER TABLE Links
+    ADD CONSTRAINT FK_Links_folderIdx_Folders_folderIdx FOREIGN KEY (folderIdx)
+        REFERENCES Folders (folderIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Links(folderIdx)
+-- ALTER TABLE Links
+-- DROP FOREIGN KEY FK_Links_folderIdx_Folders_folderIdx;
+
+
+-- Friends Table Create SQL
+-- 테이블 생성 SQL - Friends
+CREATE TABLE Friends
+(
+    `friendIdx`      INT            NOT NULL    AUTO_INCREMENT COMMENT '사용자 고유값', 
+    `createdAt`      TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '생성 일자', 
+    `updatedAt`      TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP COMMENT '수정 일자', 
+    `status`         VARCHAR(45)    NOT NULL    DEFAULT 'enable' COMMENT '사용 가능 여부', 
+    `firstUserIdx`   INT            NOT NULL    COMMENT '친구 유저 1', 
+    `secondUserIdx`  INT            NOT NULL    COMMENT '친구 유저 2', 
+     PRIMARY KEY (friendIdx)
+);
+
+-- Foreign Key 설정 SQL - Friends(firstUserIdx) -> Users(userIdx)
+ALTER TABLE Friends
+    ADD CONSTRAINT FK_Friends_firstUserIdx_Users_userIdx FOREIGN KEY (firstUserIdx)
+        REFERENCES Users (userIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Friends(firstUserIdx)
+-- ALTER TABLE Friends
+-- DROP FOREIGN KEY FK_Friends_firstUserIdx_Users_userIdx;
+
+-- Foreign Key 설정 SQL - Friends(secondUserIdx) -> Users(userIdx)
+ALTER TABLE Friends
+    ADD CONSTRAINT FK_Friends_secondUserIdx_Users_userIdx FOREIGN KEY (secondUserIdx)
+        REFERENCES Users (userIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Friends(secondUserIdx)
+-- ALTER TABLE Friends
+-- DROP FOREIGN KEY FK_Friends_secondUserIdx_Users_userIdx;
+
+
+-- Alerts Table Create SQL
+-- 테이블 생성 SQL - Alerts
+CREATE TABLE Alerts
+(
+    `alertIdx`        INT            NOT NULL    AUTO_INCREMENT, 
+    `createdAt`       TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
+    `updatedAt`       TIMESTAMP      NOT NULL    DEFAULT CURRENT_TIMESTAMP, 
+    `status`          VARCHAR(15)    NOT NULL    DEFAULT 'enable' COMMENT 'enable은 안 읽은 상태 - 활성화 상태, read일 경우 읽은 상태', 
+    `sendUserIdx`     INT            NOT NULL    COMMENT '알림 보낸 사람', 
+    `receiveUserIdx`  INT            NOT NULL    COMMENT '받는 사람', 
+    `folderIdx`       INT            NULL        COMMENT '어떤 폴더에 대한 idx인지', 
+    `linkIdx`         INT            NULL        COMMENT '어떤 링크를 공유할지', 
+    `alertTitle`      VARCHAR(45)    NOT NULL    COMMENT '알람 제목', 
+    `alertText`       TEXT           NOT NULL    COMMENT '알람 내용', 
+    `alertType`       TINYINT        NOT NULL    COMMENT '0(친구 알림), 1(공유 알림)', 
+     PRIMARY KEY (alertIdx)
+);
+
+-- Foreign Key 설정 SQL - Alerts(folderIdx) -> Folders(folderIdx)
+ALTER TABLE Alerts
+    ADD CONSTRAINT FK_Alerts_folderIdx_Folders_folderIdx FOREIGN KEY (folderIdx)
+        REFERENCES Folders (folderIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Alerts(folderIdx)
+-- ALTER TABLE Alerts
+-- DROP FOREIGN KEY FK_Alerts_folderIdx_Folders_folderIdx;
+
+-- Foreign Key 설정 SQL - Alerts(linkIdx) -> Links(linkIdx)
+ALTER TABLE Alerts
+    ADD CONSTRAINT FK_Alerts_linkIdx_Links_linkIdx FOREIGN KEY (linkIdx)
+        REFERENCES Links (linkIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Alerts(linkIdx)
+-- ALTER TABLE Alerts
+-- DROP FOREIGN KEY FK_Alerts_linkIdx_Links_linkIdx;
+
+-- Foreign Key 설정 SQL - Alerts(receiveUserIdx) -> Users(userIdx)
+ALTER TABLE Alerts
+    ADD CONSTRAINT FK_Alerts_receiveUserIdx_Users_userIdx FOREIGN KEY (receiveUserIdx)
+        REFERENCES Users (userIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Alerts(receiveUserIdx)
+-- ALTER TABLE Alerts
+-- DROP FOREIGN KEY FK_Alerts_receiveUserIdx_Users_userIdx;
+
+-- Foreign Key 설정 SQL - Alerts(sendUserIdx) -> Users(userIdx)
+ALTER TABLE Alerts
+    ADD CONSTRAINT FK_Alerts_sendUserIdx_Users_userIdx FOREIGN KEY (sendUserIdx)
+        REFERENCES Users (userIdx) ON DELETE RESTRICT ON UPDATE RESTRICT;
+
+-- Foreign Key 삭제 SQL - Alerts(sendUserIdx)
+-- ALTER TABLE Alerts
+-- DROP FOREIGN KEY FK_Alerts_sendUserIdx_Users_userIdx;
+
+
