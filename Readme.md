@@ -70,6 +70,10 @@ java -jar build/libs/demo-0.0.1-SNAPSHOT.jar<br>
 명령어를 순서대로 치는 것으로 실행됩니다.
 <br><br>
 
+### 프로젝트에서 사용한 ERD 입니다.
+![image](https://user-images.githubusercontent.com/88032932/206117411-91f05935-9200-42b0-85ab-7abbc6bfb541.png)
+- Aquerytool을 이용해 제작했습니다.
+- sql 코드는 Linkfolder_sql.txt에 있습니다.
 
 
 <br><br>
