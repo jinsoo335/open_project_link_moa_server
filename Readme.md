@@ -35,15 +35,15 @@ https://github.com/yujimin413/open_project_link_moa_client
 <br><br>
 
 ### 서버 부분 소스코드 사용법...
-본 소스코드에는 링크 폴더 프로젝트를 위해 필요한 api들을 개발한 내용이 있습니다.
-api에 대한 자세한 명세는 API_Sheet.pdf 파일에 대략적인 설명이 있고,
-api 폴더 안의 pdf들에 자세한 설명들이 있습니다.
+본 소스코드에는 링크 폴더 프로젝트를 위해 필요한 api들을 개발한 내용이 있습니다.<br>
+api에 대한 자세한 명세는 API_Sheet.pdf 파일에 대략적인 설명이 있고,<br>
+api 폴더 안의 pdf들에 자세한 설명들이 있습니다.<br>
+<br>
 
-
-ec2서버 ubuntu 18.04LTS OS위에 nginx를 설치하여 테스트했습니다.
-데이터 베이스는 mysql을 사용했습니다.
-또한 도메인을 linkfolder.shop으로 지정하여 사용했습니다.
-
+ec2서버 ubuntu 18.04LTS OS위에 nginx를 설치하여 테스트했습니다.<br>
+데이터 베이스는 mysql을 사용했습니다.<br>
+또한 도메인을 linkfolder.shop으로 지정하여 사용했습니다.<br>
+<br>
 
 본 소스코드를 다운받아 직접 api의 호출을 하고 싶은 경우에는 깃 허브 상의 코드를 받은 뒤에 application.yml 파일을 추가해야 합니다.
 
