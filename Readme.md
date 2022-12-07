@@ -36,8 +36,8 @@ https://github.com/yujimin413/open_project_link_moa_client
 
 ### 서버 부분 소스코드 사용법...
 본 소스코드는 링크 폴더 프로젝트를 위해 필요한 api에 대한 내용입니다.<br>
-api에 대한 자세한 명세는 API_Sheet.pdf 파일에 대략적인 설명이 있고,<br>
-api 폴더 안의 pdf들에 자세한 설명들이 있습니다.<br>
+api에 대한 자세한 명세는 *API_Sheet.pdf* 파일에 대략적인 설명이 있고,<br>
+*api 폴더* 안의 pdf들에 자세한 설명들이 있습니다.<br>
 <br>
 
 ec2서버 ubuntu 18.04LTS OS위에 nginx를 설치하여 테스트했습니다.<br>
