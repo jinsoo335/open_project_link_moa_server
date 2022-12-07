@@ -63,10 +63,10 @@ application.yml 파일에 들어가야하는 내용은 다음과 같습니다.
 12. aws.s3.bucket
 13. aws.s3.dir
 
-yml 파일 추가 후에는 터미널에서
+yml 파일 추가 후에는 터미널에서<br>
 ./gradlew clean build
 <br>
-java -jar build/libs/demo-0.0.1-SNAPSHOT.jar
+java -jar build/libs/demo-0.0.1-SNAPSHOT.jar<br>
 명령어를 순서대로 치는 것으로 실행됩니다.
 <br><br>
 
