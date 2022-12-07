@@ -1,7 +1,7 @@
 [![Java CI with Gradle](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml/badge.svg)](https://github.com/jinsoo335/open_project_link_moa_server/actions/workflows/gradle.yml)
 
 
-##본 소스코드는 링크 폴더 프로젝트에 대한 서버 부분의 코드입니다.
+## 본 소스코드는 링크 폴더 프로젝트에 대한 서버 부분의 코드입니다.
 
 클라이언트 부분 깃 허브 주소는 다음과 같습니다. 
 https://github.com/yujimin413/open_project_link_moa_client
